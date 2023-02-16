@@ -25,11 +25,10 @@ import os
 from libqtile import hook
 import subprocess
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, hook, Screen, KeyChord
+from libqtile.config import Click, Drag, Group, Key, Match, hook, Screen, KeyChord, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.dgroups import simple_key_binder
-from qtile_extras import widget
 
 
 mod = "mod4"
@@ -117,8 +116,11 @@ keys = [
     # PowerMenu
     Key([mod], "Escape", lazy.spawn(
         "rofi -show power-menu -modi power-menu:rofi-power-menu"
-    ))
+    )),
 
+
+    Key([mod], "0", lazy.group['scratchpad'].dropdown_toggle(
+        'term'), desc="Open Scratchpad"),
 
 
 
@@ -149,6 +151,11 @@ for i in groups:
             ),
         ]
     )
+# ScratchPad
+groups.append(ScratchPad(
+    "scratchpad", [DropDown("term", "kitty",
+                            width=0.6, height=0.6, x=0.2, y=0.2),
+                   ]))
 
 
 _font = "Monospace"
@@ -455,7 +462,7 @@ floating_layout = layout.Floating(
 # stuff
 
 
-@hook.subscribe.startup_once
+@ hook.subscribe.startup_once
 def autostart():
     # path to my script, under my user directory
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
