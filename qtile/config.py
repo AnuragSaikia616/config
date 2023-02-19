@@ -124,6 +124,10 @@ keys = [
 
 
 
+    # Tap mod to hide bar hold for normal use
+    Key([mod, "control"], "b", lazy.hide_show_bar("all")),
+
+
 
 ]
 
@@ -158,7 +162,7 @@ groups.append(ScratchPad(
                    ]))
 
 
-_font = "Monospace"
+_font = "Montserrat"
 colors = dict(
     black="#000000",
     accent='#cccccc80',
@@ -169,7 +173,10 @@ colors = dict(
     green='#44ee33',
     red='#f44',
     yellow='#fd0',
-    white='#ffffff40'
+    white='#ffffff40',
+    # For dock
+    dock_fg='#fff',
+    dock_bg='#00000000'
 )
 
 ###𝙇𝙖𝙮𝙤𝙪𝙩###
@@ -188,17 +195,18 @@ layouts = [
 
     layout.Floating(border_focus=colors['accent'],
                     border_normal='#1F1D2E',
+                    # border_focus='#fff',
                     margin=_margin,
                     border_width=3,
                     ),
     # Try more layouts by unleashing below layouts
     #  layout.Stack(num_stacks=2),
     #  layout.Bsp(),
-    layout.Matrix(border_focus=colors['accent'],
-                  border_normal='#1F1D2E',
-                  margin=_margin,
-                  border_width=3,
-                  ),
+    # layout.Matrix(border_focus=colors['accent'],
+    #               border_normal='#1F1D2E',
+    #               margin=_margin,
+    #               border_width=3,
+    #               ),
     # layout.MonadTall(border_focus=colors['accent'],
     #               border_normal='#1F1D2E',
     #                 margin=4,
@@ -255,7 +263,7 @@ screens = [
                 # ),
 
                 widget.GroupBox(
-                    font=_font,
+                    font=_font+"bold",
                     fontsize=25,
                     padding=10,
                     borderwidth=5,
@@ -274,82 +282,46 @@ screens = [
                     rounded=False,
                     disable_drag=True,
                 ),
-                widget.TextBox(
-                    text=' ',
-                    fontsize=25,
-                    font=_font,
-                    padding=20,
-                    mouse_callbacks={"Button1": lazy.spawn(
-                        "thunar"), "Button3": lazy.spawn("kitty ranger")},
-                ),
-                widget.TextBox(
-                    text=' ',
-                    fontsize=25,
-                    padding=10,
-                    mouse_callbacks={"Button3": lazy.spawn(
-                        "chromium youtube.com --start-fullscreen"), "Button1": lazy.spawn("chromium youtube.com")}
-                ),
-                widget.TextBox(
-                    text=' ',
-                    fontsize=35,
-                    padding=17,
-                    mouse_callbacks={"Button1": lazy.spawn(
-                        "pycharm"), "Button3": lazy.spawn("jupyter-lab")}
-                ),
-                widget.TextBox(
-                    text='R',
-                    font='JetBrainsMono Extra Bold',
-                    fontsize=25,
-                    padding=0,
-                    mouse_callbacks={"Button1": lazy.spawn(
-                        "rstudio")}
-                ),
-                # widget.Wallpaper(
-                #    directory='~/Downloads/wallpapers',
-                #    label=' ',
-                #    padding=10,
-                #    background=colors['black'],
-                # ),
-
 
                 widget.Spacer(),
 
                 widget.WidgetBox(
+                    color='#fff',
                     text_closed='< Arch Linux >',
                     text_open='->',
-                    font='terminus bold',
+                    # font='terminus bold',
+                    font=_font,
                     fontsize=22,
                     foreground='#fff',
                     widgets=[
 
                         widget.TextBox(
-                            text=' S-tui',
+                            text=' CPU-Mem',
                             foreground=colors['green'],
                             fontsize=22,
                             font=_font,
-                            padding=30,
+                            padding=40,
                             mouse_callbacks={
-                                "Button1": lazy.spawn("kitty s-tui")}
-                        ),
-
-                        widget.TextBox(
-                            text=' Vtop',
-                            fontsize=22,
-                            font=_font,
-                            padding=30,
-                            foreground=colors['yellow'],
-                            mouse_callbacks={
-                                "Button1": lazy.spawn("kitty vtop")}
+                                "Button1": lazy.spawn("kitty gotop")}
                         ),
                         widget.TextBox(
-                            text=' Duc',
+                            text=' Storage',
                             foreground='#fff',
                             # background=colors['red'],
                             fontsize=22,
                             font=_font,
-                            padding=30,
+                            padding=40,
                             mouse_callbacks={
                                 "Button1": lazy.spawn('kitty duc ui')}
+                        ),
+                        widget.TextBox(
+                            text=' Wallpaper',
+                            foreground=colors['yellow'],
+                            fontsize=22,
+                            font=_font,
+                            padding=40,
+                            mouse_callbacks={"Button1": lazy.spawn(
+                                "/usr/bin/nitrogen --set-zoom-fill --random Downloads/wallpapers --save")}
                         ),
 
                     ]
@@ -378,8 +350,8 @@ screens = [
 
                 widget.Battery(
                     format='{char}{percent:2.0%}',
-                    charge_char='  ',
-                    discharge_char='   ',
+                    charge_char=' ',
+                    discharge_char=' ',
                     font=_font,
                     fontsize=22,
                     padding=50,
@@ -409,11 +381,12 @@ screens = [
                 widget.Clock(
                     format=' %B-%d %I:%M %p ',
                     foreground="#000",
-                    background='#ffffffbf',
-                    font=_font,
+                    background='#F5F5F5BF',
+                    font=_font+"Bold",
                     fontsize=22,
                     mouse_callbacks={
-                        "Button1": lazy.spawn('kitty tty-clock -ctB')}
+                        "Button1": lazy.spawn('kitty tty-clock -ctB'),
+                        "Button3": lazy.spawn('kitty calcurse')}
                 ),
 
 
@@ -421,9 +394,63 @@ screens = [
 
             ],
             40,
-            margin=[5, 10, 0, 10],
+            margin=[0, 10, 0, 10],
             background=colors['main']
         ),
+
+
+        # Dock
+        bottom=bar.Bar([
+
+            widget.TextBox(
+                text=' Downloads',
+                fontsize=20,
+                font=_font,
+                foreground=colors['dock_fg'],
+                mouse_callbacks={"Button1": lazy.spawn(
+                    "kitty ranger Downloads")},
+            ),
+            widget.Spacer(),
+            widget.TextBox(
+                text='Youtube',
+                font=_font,
+                foreground=colors['dock_fg'],
+                fontsize=20,
+                mouse_callbacks={"Button3": lazy.spawn(
+                    "chromium youtube.com --start-fullscreen"), "Button1": lazy.spawn("chromium youtube.com")}
+            ),
+
+            widget.Spacer(),
+            widget.TextBox(
+                text='Jupyterlab',
+                font=_font,
+                foreground=colors['dock_fg'],
+                fontsize=20,
+                mouse_callbacks={"Button1": lazy.spawn("jupyter-lab")}
+            ),
+            widget.Spacer(),
+            widget.TextBox(
+                text='VScode',
+                font=_font,
+                foreground=colors['dock_fg'],
+                fontsize=20,
+                mouse_callbacks={"Button1": lazy.spawn("code")}
+            ),
+            widget.Spacer(),
+            widget.TextBox(
+                text='Rstudio ',
+                font=_font,
+                foreground=colors['dock_fg'],
+                fontsize=20,
+                mouse_callbacks={"Button1": lazy.spawn(
+                    "rstudio")}
+            ),
+        ],
+            35,
+            margin=[0, 600, 0, 600],
+            background=colors['dock_bg'],
+
+        )
     ),
 
 ]
