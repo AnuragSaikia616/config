@@ -158,7 +158,7 @@ groups.append(ScratchPad(
                    ]))
 
 
-_font = "Jetbrainsmono Light"
+_font = "Jetbrainsmono"
 colors = dict(
     black="#000000",
     accent='#4a4',
@@ -261,12 +261,12 @@ screens = [
                     borderwidth=5,
                     highlight_method='line',
                     active=colors['green'],
-                    block_highlight_text_color="#000",
-                    highlight_color=colors['green'],
+                    block_highlight_text_color=colors['white'],
+                    highlight_color=colors['main'],
                     inactive=colors['white'],
                     foreground=colors['white'],
                     background=colors['black'],
-                    this_current_screen_border=colors['black'],
+                    this_current_screen_border=colors['blue'],
                     this_screen_border='#fff',
                     other_current_screen_border='#fff',
                     other_screen_border='#fff',
