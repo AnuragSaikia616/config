@@ -13,7 +13,7 @@ $ cd dotfiles_linux
   + Qtile folder(includes picom, conky and kitty configs)
   $ cd qtile ~/.config/qtile
   + Neovim(astrovim config)
-  $ cp nvim ~/.config/nvim
+  Using astrovim with monokai theme from [Starry.nvim](https://github.com/ray-x/starry.nvim) 
 
 ### Extra:
 The repo also includes cool wallpapers. Be sure to check them out.
