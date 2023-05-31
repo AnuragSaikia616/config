@@ -7,6 +7,8 @@ Following packages and programs are used:
 * Rofi (application launcher)
 * Picom (Compositor)
 * Kitty (terminal)
+* Conky (widget)
+
 etc...
 ## Screenshots
 ![Screenshot](./roficonky.png) 
