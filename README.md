@@ -3,7 +3,7 @@ Includes my arch linux config files.
 Following packages and programs are used:
 * Qtile (Tiling window manager)
 * Ranger (terminal file manager)
-* Astrovim (neo-vim editor)
+* Astrovim [themes from starry.nvim](https://github.com/ray-x/starry.nvim) (editor)
 * Rofi (application launcher)
 * Picom (Compositor)
 * Kitty (terminal)
