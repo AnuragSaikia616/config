@@ -11,10 +11,11 @@ Following packages and programs are used:
 
 etc...
 ## Screenshots
-![Screenshot](./roficonky.png) 
-![Screenshot](./cbonsainvim.png)
-![Screenshot](./cava.png)
-![Screenshot](./btopcmatrix.png)
+Will update later
+<!-- ![Screenshot](./roficonky.png)  -->
+<!-- ![Screenshot](./cbonsainvim.png) -->
+<!-- ![Screenshot](./cava.png) -->
+<!-- ![Screenshot](./btopcmatrix.png) -->
 ### How to install
 1. Clone the repository into your system.
 ```
@@ -29,6 +30,7 @@ $ cd dotfiles_linux
 ```
 $ cp -r qtile ~/.config/qtile
 $ cp -r ranger ~/.config/ranger
+$ cp rofi/launcher.rasi ~/.local/share/rofi/themes 
 ```
 #### EXTRA
 I have also included some cool wallpapers in the wallpapers folder.

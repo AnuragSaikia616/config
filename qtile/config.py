@@ -33,8 +33,9 @@ from qtile_extras import widget
 
 mod = "mod4"
 terminal = "kitty --config=.config/qtile/kitty/kitty.conf"
+scratch = "kitty --config=.config/qtile/kitty/scratchpad_kitty.conf"
 browser = "google-chrome-stable"
-launcher = "rofi -show drun --config=.config/qtile/rofi/spotlight.rasi"
+launcher = "rofi -show drun -show-icons"
 ranger = "kitty --config=.config/qtile/kitty/kitty.conf ranger"
 _font = "Sourcecodepro"
 # Function to hide all windows:
@@ -133,9 +134,6 @@ keys = [
         "rofi -show power-menu -modi power-menu:rofi-power-menu"
     )),
 
-    # LOCKSCREEN
-    Key([mod, "shift"], "l", lazy.spawn("betterlockscreen -l")),
-
     Key([mod], "0", lazy.group['scratchpad'].dropdown_toggle(
         'term'), desc="Open Scratchpad terminal"),
     Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('files')),
@@ -173,7 +171,7 @@ for i in groups:
     )
 # ScratchPad
 groups.append(ScratchPad(
-    "scratchpad", [DropDown("term", terminal,
+    "scratchpad", [DropDown("term", scratch,
                             width=0.6, height=0.6, x=0.2, y=0.2, opacity=1),
                    ]))
 
@@ -194,7 +192,7 @@ colors = dict(
 )
 
 ###𝙇𝙖𝙮𝙤𝙪𝙩###
-_margin = 5
+_margin = 7
 layouts = [
     layout.Columns(margin=_margin, border_focus=colors['accent'],
                    border_normal='#111',
@@ -279,7 +277,7 @@ screens = [
                 widget.GroupBox(
                     font=_font,
                     fontsize=fs,
-                    padding=10,
+                    padding=18,
                     borderwidth=5,
                     highlight_method='line',
                     active=colors['white'],
@@ -296,15 +294,15 @@ screens = [
                     rounded=False,
                     disable_drag=True,
                 ),
-                widget.TextBox(
-                    text='',
-                    fontsize=40,
-                    font=_font,
-                    padding=20,
-                    foreground=colors['white'],
-                    mouse_callbacks={"Button1": lazy.spawn(
-                        ranger)}
-                ),
+                # widget.TextBox(
+                #     text='',
+                #     fontsize=40,
+                #     font=_font,
+                #     padding=20,
+                #     foreground=colors['white'],
+                #     mouse_callbacks={"Button1": lazy.spawn(
+                #         ranger)}
+                # ),
                 #
                 # widget.Spacer(
                 #     length=200
@@ -402,7 +400,7 @@ screens = [
             40,
             # margin=[5, 5, 0, 5],
             background=colors['black'],
-            # opacity=0.7
+            opacity=0.7
         ),
 
     ),
