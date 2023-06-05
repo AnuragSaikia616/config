@@ -1,4 +1,4 @@
-# dotfiles_linux
+# WELCOME TO MY CONFIG REPO!!!
 Includes my arch linux config files.
 Following packages and programs are used:
 * Qtile (Tiling window manager)
