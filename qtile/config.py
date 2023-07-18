@@ -35,7 +35,7 @@ mod = "mod4"
 terminal = "kitty --config=.config/qtile/kitty/kitty.conf"
 scratch = "kitty --config=.config/qtile/kitty/scratchpad_kitty.conf"
 browser = "google-chrome-stable"
-launcher = "rofi -show drun -show-icons"
+launcher = "rofi -show drun"
 ranger = "kitty --config=.config/qtile/kitty/kitty.conf ranger"
 _font = "Sourcecodepro"
 # Function to hide all windows:
@@ -139,10 +139,11 @@ keys = [
     Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('files')),
 
     # HIdes the bar
-    Key([mod, "control"], "b", lazy.hide_show_bar("all")),
+    # Key([mod, "control"], "b", lazy.hide_show_bar("all")),
+    Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
     Key([mod, "shift"], "m", hide_windows()),
-    Key([mod], "t", lazy.spawn("kitty btop"))
-
+    Key([mod], "t", lazy.spawn("kitty btop")),
+    # Key([mod, "shift"], "l", lazy.spawn("betterlockscreen -l"))
 ]
 
 # █▀▀ █▀█ █▀█ █░█ █▀█ █▀
@@ -176,10 +177,10 @@ groups.append(ScratchPad(
                    ]))
 
 
-fs = 22
+fs = 20
 colors = dict(
-    black="#121212",
-    accent='#fff',
+    black="#000000",
+    accent='#0f0',
     main='#121212',
     bg='#1a1b26',
     trans='#121212',
@@ -192,7 +193,7 @@ colors = dict(
 )
 
 ###𝙇𝙖𝙮𝙤𝙪𝙩###
-_margin = 7
+_margin = 5
 layouts = [
     layout.Columns(margin=_margin, border_focus=colors['accent'],
                    border_normal='#111',
@@ -277,7 +278,7 @@ screens = [
                 widget.GroupBox(
                     font=_font,
                     fontsize=fs,
-                    padding=18,
+                    padding=12,
                     borderwidth=5,
                     highlight_method='line',
                     active=colors['white'],
@@ -325,23 +326,23 @@ screens = [
                 #     length=200
                 # ),
                 #
-                # widget.Pomodoro(
-                #     font=_font,
-                #     # fontsize=30,
-                #     # prefix_inactive='',
-                #     length_pomodori=50,
-                #     color_inactive=colors['white']
-                # ),
+       
                 # widget.TextBox(
                 #     text="Apps",
                 #     font=_font,
                 #     mouse_callbacks={"Button1": lazy.spawn(launcher)}
                 # ),
-
-                widget.Spacer(length=30),
+   # widget.Pomodoro(
+   #                  font=_font,
+   #                  fontsize=fs,
+   #                  # prefix_inactive='',
+   #                  length_pomodori=50,
+   #                  color_inactive=colors['white']
+   #              ),
+                widget.Spacer(length=50),
 
                 widget.Systray(
-                    icon_size=35,
+                    icon_size=32,
                     # background=["#00000000", "#00000000", "#00000000"],
                     padding=50
                 ),
@@ -349,37 +350,43 @@ screens = [
                 #     text='       ',
                 #     background=colors['black']
                 # ),
-                widget.Spacer(length=40),
-                widget.UPowerWidget(
-                    margin=20,
-                    fill_charge='#0e0',
-                    battery_height=16,
-                    battery_width=40,
-                    font='Jetbrainsmono Light',
-                    text_displaytime=2,
-                ),
-                widget.Spacer(length=40),
-
-
+                widget.Spacer(length=50),
+            
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 6 Free Solid",
-                    fontsize=fs,
+                    fontsize=fs+6,
                     padding=0,
                     foreground=colors["white"],
                     # background=colors['black'],
                     mouse_callbacks={"Button1": lazy.spawn('pavucontrol')}
                 ),
-
                 widget.Volume(
                     font=_font,
                     fontsize=fs,
                     foreground=colors["white"],
                     # background=colors['black']
                 ),
+                widget.Spacer(length=50),
 
 
-                widget.Spacer(length=40),
+                widget.UPowerWidget(
+                    margin=0,
+                    fill_charge='#0e0',
+                    fill_low="#f00",
+                    border_critical_colour='#f00',
+                    border_charge_colour="#dbdbe0",
+                    battery_height=16,
+                    battery_width=40,
+                    font=_font,
+                    text_charging=' {percentage:.0f}% {ttf}',
+                    text_discharging='{percentage:.0f}% {tte}',
+                    text_displaytime=2,
+                ),
+               
+
+
+                widget.Spacer(length=50),
 
 
                 widget.Clock(
@@ -392,6 +399,7 @@ screens = [
                     mouse_callbacks={
                         "Button1": lazy.spawn(terminal+' tty-clock -ctB')}
                 ),
+             
 
 
 
@@ -414,6 +422,7 @@ mouse = [
     Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
+    Click([mod], "Button1", lazy.spawn("./xmenu/xmenu.sh"))
 ]
 
 dgroups_key_binder = None
