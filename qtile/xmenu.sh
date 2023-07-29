@@ -1,7 +1,6 @@
 #!/bin/sh
 
 xmenu <<EOF | sh &
-IMG:/home/anurag/.config/qtile/icons/chrome2.png	Browser	(google-chrome-stable) 
 IMG:/home/anurag/.config/qtile/icons/files.png	File_manager	(pcmanfm) 
 IMG:/home/anurag/.config/qtile/icons/programming.png	Programming
 	VScode	code
@@ -15,5 +14,8 @@ IMG:/home/anurag/.config/qtile/icons/terminals.png	Terminal
 	Kitty	(kitty)
 	Alacritty	alacritty
 IMG:/home/anurag/.config/qtile/icons/screenshot.png	Screenshot 	(scrot -d 0)
+IMG:/home/anurag/.config/qtile/icons/nightlight.png	Night Light 
+	IMG:/home/anurag/.config/qtile/icons/nightlight_on.png	ON (5500k)	(redshift -P -O 5500k)
+	IMG:/home/anurag/.config/qtile/icons/nightlight_off.png	OFF (6500k)	(redshift -P -O 6500k)
 IMG:/home/anurag/.config/qtile/icons/appr.png	Customize 	lxappearance
 EOF

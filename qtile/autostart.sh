@@ -1,8 +1,9 @@
 #!/bin/sh
 
-nitrogen --restore 
+# nitrogen --restore 
+wal -R
 
-nm-applet &
+# nm-applet &
 
 ibus-daemon &
 
