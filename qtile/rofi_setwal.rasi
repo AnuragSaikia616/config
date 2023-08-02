@@ -1,0 +1,52 @@
+@import "~/.cache/wal/colors-rofi-light.rasi"
+* {
+    font: "Sourcecodepro 20";
+}
+configuration{
+    show-icons: true;
+    hover-select: true;
+    location: 0;
+    disable-history: true;
+    matching: "prefix";
+    hide-scrollbar: false;
+    display-file-browser-extended: "Pick Wallpaper";
+}
+window {
+    location: northeast;
+    background-color: @background;
+    width: 25%;
+    height: 100%;
+    border: -35;
+}
+listview {
+    fixed-height:   true;
+    border:         3px 0 0;
+    border-color:   @foreground;
+}
+
+element {
+    padding: 10px;
+    background-color:   transparent;
+    children: ["element-icon","element-text"];
+}
+
+element.normal.active {
+    background-color: @background;
+    text-color: @foreground;
+}
+
+element.selected.normal, element.selected.active {
+    background-color:   @selected-normal-background;
+    text-color:         @background;
+}
+
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    size: 140px;
+}
