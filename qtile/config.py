@@ -1,35 +1,32 @@
+'''
+╭━━━┳━━━━┳━━┳╮╱╱╭━━━╮
+┃╭━╮┃╭╮╭╮┣┫┣┫┃╱╱┃╭━━╯
+┃┃╱┃┣╯┃┃╰╯┃┃┃┃╱╱┃╰━━╮
+┃┃╱┃┃╱┃┃╱╱┃┃┃┃╱╭┫╭━━╯
+┃╰━╯┃╱┃┃╱╭┫┣┫╰━╯┃╰━━╮
+╰━━╮┃╱╰╯╱╰━━┻━━━┻━━━╯
+╱╱╱╰╯
+'''
 import os
 from libqtile import hook
 import subprocess
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Group, Match, hook, Screen, ScratchPad, DropDown
-from libqtile.lazy import lazy
+# from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.dgroups import simple_key_binder
 from libqtile import extension
 from qtile_extras import widget
 from keybindings import *
+from spotify import Spotify
 
-
-default_font = "sourcecodepro"
+default_font = "JetBrainsMono Nerd Font"
 default_fontsize = 18
-bar_opacity = 0.6
+bar_opacity = 1
 bar_thickness = 35
-
+colors = get_colors()
 # COLORS 
-colors = dict(
-    black="#000000",
-    accent='#0f0',
-    main='#121212',
-    bg='#1a1b26',
-    trans='#121212',
-    blue='#00afff',
-    green='#0b0',
-    red='#fa2573',
-    yellow='#fabd2f',
-    white='#ced1d4',
-    purple='#ae81ff'
-)
+# colors = {0:"#121212",2:"#ffffff",3:"#ffffff",7:"#ffffff",8:"#666666"}
 
 
 # █▄▄ ▄▀█ █▀█
@@ -42,21 +39,23 @@ screens = [
                 widget.CurrentLayoutIcon(
                     padding=0,
                     scale=0.5,
+                    foreground=colors[7]
                 ),
+
 
                 widget.GroupBox(
                     padding=12,
                     borderwidth=5,
                     highlight_method='line',
-                    active=colors['white'],
-                    block_highlight_text_color=colors['black'],
-                    highlight_color=colors['white'],
+                    active=colors[7],
+                    block_highlight_text_color=colors[7],
+                    highlight_color="#00000000",
                     inactive='#666',
                     # inactive = colors['black'],
-                    foreground=colors['white'],
+                    foreground=colors[7],
                     # background=colors['black'],
-                    this_current_screen_border=colors['black'],
-                    this_screen_border=colors['white'],
+                    this_current_screen_border=colors[3],
+                    this_screen_border=colors[7],
                     other_current_screen_border='#fff',
                     other_screen_border='#fff',
                     urgent_border='#fff',
@@ -65,44 +64,52 @@ screens = [
                 ),
 
                 widget.TaskList(
-                    border=colors['white'],
-                    foreground="#000",
-                    unfocused_border="#666",
+                    border=colors[7],
+                    foreground=colors[0],
+                    unfocused_border='#555',
                     max_title_width=300,
                     highlight_method='block',
                     title_width_method='uniform',
-                    rounded=False
+                    rounded=False,
+                    # font = default_font+' Bold'
                 ),
 
-                widget.Spacer(length=50),
-
-                # widget.Systray(
-                #     icon_size=32,
-                #     # background=["#00000000", "#00000000", "#00000000"],
-                #     padding=50,
-                # ),
-
-                widget.CheckUpdates(
-                    mouse_callbacks = {'Button1': lazy.spawn(terminal+" sudo pacman -Syu")}    
+                Spotify(
+                    foreground=colors[7],
+                    play_icon="",
+                    format="{icon} {artist} - {track}"
                 ),
                 widget.Spacer(length=50),
-                widget.TextBox(text = "󰖩",fontsize = 28),
+
+                widget.TextBox(
+                    foreground=colors[7],
+                  text = '',
+                  fontsize = 23,
+                  mouse_callbacks = {'Button1': lazy.spawn(launcher)}  
+                ),
+                widget.Spacer(length=50),
+                widget.TextBox(
+                    text = "󰤨",fontsize = 28,
+                    foreground = colors[7],
+                               ),
                 widget.Wlan(
                     format = "{percent:2.0%}", 
-                    mouse_callbacks = {'Button1': lazy.spawn("rofi-wifi-menu")}
+                    mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtur")},
+                    foreground=colors[7],
                 ),
                 widget.Spacer(length=50),
             
                 widget.TextBox(
-                    text=" ",
+                    text=" ",
                     font="Font Awesome 6 Free Solid",
-                    fontsize=default_fontsize+6,
+                    fontsize=27,
                     padding=0,
+                    foreground=colors[7],
                     # background=colors['black'],
                     mouse_callbacks={"Button1": lazy.spawn('pavucontrol')}
                 ),
                 widget.Volume(
-                    foreground=colors["white"],
+                    foreground=colors[7],
                     # background=colors['black']
                 ),
                 widget.Spacer(length=50),
@@ -114,6 +121,8 @@ screens = [
                     fill_low="#f00",
                     border_critical_colour='#f00',
                     border_charge_colour="#dbdbe0",
+                    fill_normal=colors[7],
+                    border_colour=colors[7],
                     battery_height=16,
                     battery_width=40,
                     text_charging=' {percentage:.0f}% {ttf}',
@@ -127,17 +136,21 @@ screens = [
 
 
                 widget.Clock(
-                    format=' %B-%d %I:%M %p ',
+                    format='%I:%M %p',
+                    # format=' %B-%d %I:%M %p ',
+                    foreground=colors[7],
                     # format='%a %d-%m-%y ',
                     # foreground=colors['white'],
-                    # background=colors['black'],
+                    # background=colors[0],
                     mouse_callbacks = {'Button1': control_panel()} 
                 ),
+
+                
             ],
             bar_thickness,
             # margin=[5, 5, 0, 5],
-            background=colors['main'],
-            opacity=bar_opacity
+            background="#00000011",
+            # opacity=bar_opacity
         ),
     ),
 ]
@@ -175,35 +188,40 @@ groups.append(ScratchPad(
                    ]))
 
 ###𝙇𝙖𝙮𝙤𝙪𝙩###
-_margin = 0
+# _margin = 0
 layouts = [
-    layout.Columns(margin=_margin, border_focus=colors['accent'],
-                   border_normal='#111',
+    layout.Columns(
+                   margin=10, 
+                   border_focus='#0f0',
+                   border_normal='#000',
                    border_width=3
                    ),
-
-    layout.Max(border_focus=colors['accent'],
-               border_normal='#1F1D2E',
-               margin=_margin,
-               border_width=3,
-               ),
+    #
+    # layout.Max(border_focus='#0f0',
+    #            border_normal='#000',
+    #            # margin=_margin,
+    #            border_width=3,
+    #            ),
 
     layout.Floating(
-        border_normal='#ffffff',
-        border_focus='#ffffff',
-        margin=_margin,
+        border_normal='#000',
+        border_focus='#0f0',
+        # margin=_margin,
         border_width=3,
     ),
-    layout.Tile(border_focus=colors['accent'],
-                border_normal='#1F1D2E',
-                border_width=2,
-                margin=_margin
-                ),
+    layout.MonadTall(
+        border_focus=colors[2],
+        ),
+    # layout.Tile(border_focus=colors[2],
+    #             border_normal='#000',
+    #             border_width=2,
+    #             # margin=_margin
+    #             ),
 ]
 
 floating_layout = layout.Floating(
     border_focus='#0f0',
-    border_normal='#aaaaaa',
+    border_normal='#000',
     border_width=3,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.

@@ -2,7 +2,7 @@
 
 # nitrogen --restore 
 wal -R
-
+emacs --daemon &
 # nm-applet &
 
 ibus-daemon &

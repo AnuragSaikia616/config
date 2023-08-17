@@ -1,4 +1,4 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
+@import "~/.cache/wal/colors-rofi-light.rasi"
 * {
     font: "Sourcecodepro 20";
 }
@@ -44,7 +44,7 @@ listview {
 }
 
 element {
-    padding: 10px;
+    padding: 20px;
     background-color:   transparent;
     border: 3;
 }

@@ -1,26 +1,30 @@
+'''
+╭╮╭━╮╱╱╱╱╱╱╭╮╱╱╱╱╱╱╱╭╮
+┃┃┃╭╯╱╱╱╱╱╱┃┃╱╱╱╱╱╱╱┃┃
+┃╰╯╯╭━━┳╮╱╭┫╰━┳┳━╮╭━╯┣┳━╮╭━━┳━━╮
+┃╭╮┃┃┃━┫┃╱┃┃╭╮┣┫╭╮┫╭╮┣┫╭╮┫╭╮┃━━┫
+┃┃┃╰┫┃━┫╰━╯┃╰╯┃┃┃┃┃╰╯┃┃┃┃┃╰╯┣━━┃
+╰╯╰━┻━━┻━╮╭┻━━┻┻╯╰┻━━┻┻╯╰┻━╮┣━━╯
+╱╱╱╱╱╱╱╭━╯┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭━╯┃
+╱╱╱╱╱╱╱╰━━╯╱╱╱╱╱╱╱╱╱╱╱╱╱╱╰━━╯
+'''
 from libqtile.config import Key, KeyChord, Mouse, Drag, Click
 from functions import *
 
 # modifiers:
-mod = "mod4"
+mod="mod4"
 alt = "mod1"
 
 # APPS
-# terminal = "kitty --config=.config/qtile/kitty/kitty.conf"
 terminal = 'alacritty'
-browser = "google-chrome-stable"
+browser = "librewolf"
 launcher = "rofi -config .config/qtile/rofi_main.rasi -show drun"
-ranger = "kitty --config=.config/qtile/kitty/kitty.conf ranger"
 
 
 # █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄ █▀
 # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ ▄█
 
 keys = [
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
-
-
     # Switch groups
     Key([mod], "period", lazy.screen.next_group()),
     Key([mod], "comma", lazy.screen.prev_group()),
@@ -46,10 +50,26 @@ keys = [
     #Commands to GROW/SHRINK Windows
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "j", lazy.layout.grow_down(),lazy.layout.shrink(), desc="Grow window down"),
+    Key([mod, "control"], "k", lazy.layout.grow_up(),lazy.layout.grow(), desc="Grow window up"),
     
+    # To grow and shrink floating windows
+    Key([alt,"control"],"x",resize_FW(30,30,expand=True)), 
+    Key([alt,"control"],"z",resize_FW(-30,-30,expand=True)), 
     
+    # To resize floating windows
+    Key([alt,'control'],"l", resize_FW(40,0,expand=False)),
+    Key([alt,'control'],"h", resize_FW(-40,0,expand=False)),
+    Key([alt,'control'],"k", resize_FW(0,-40,expand=False)),
+    Key([alt,'control'],"j", resize_FW(0,40,expand=False)),
+    # To move floating windows
+    Key([alt],'l', move_FW(40,0)),
+    Key([alt],'h', move_FW(-40,0)),
+    Key([alt],'k', move_FW(0,-40)),
+    Key([alt],'j', move_FW(0,40)),
+    # Center focused window
+    Key([alt],"c",lazy.window.center()),
+
     #Focused window FULLSCREEN TOGGLE
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     
@@ -75,7 +95,6 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     #    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "p", lazy.spawn(launcher),),
 
     # Volute and Brightness control
     Key([], "XF86AudioRaiseVolume", lazy.spawn(
@@ -89,17 +108,32 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc='playerctl'),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc='playerctl'),
     Key([], "XF86MonBrightnessUp", lazy.spawn(
-        "brightnessctl s 10%+"), desc='brightness UP'),
+        "brightnessctl s 2%+"), desc='brightness UP'),
     Key([], "XF86MonBrightnessDown", lazy.spawn(
-        "brightnessctl s 10%-"), desc='brightness Down'),
+        "brightnessctl s 2%-"), desc='brightness Down'),
 
 
-    # Launch control panel
-    Key([mod], "o", control_panel()),
 
-    
-    # Launch Rofi-wifi-menu
-    Key([mod], "w", lazy.spawn("rofi-wifi-menu")),
+   KeyChord(
+           [mod],"o",
+           [
+               Key([],"c", lazy.spawn('code')),
+               Key([],"e",lazy.spawn('emacs')),
+               Key([],"p",lazy.spawn('pycharm')),
+               Key([],"s",lazy.spawn('spotify-tray')),
+               ]
+           ), 
+
+    # Spawn rofi launcher
+    Key([mod],'p',lazy.spawn(launcher)),
+
+    #Spotify Controls
+    Key([mod],"right",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
+    Key([mod],"left",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
+
+    #Spawn rofi control panel
+    Key([mod,'control'],"p",control_panel()),
+
 
     # Launch Terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -110,9 +144,6 @@ keys = [
     # Open screenshot tool
     Key([mod], "s", lazy.spawn("rofi-screenshot"), desc='Screenshot'),
     
-    # Open Ranger file manager
-    Key([mod], "r", lazy.spawn(ranger)),
-
     # Lockscreen
     Key([mod], "Escape", lazy.spawn("betterlockscreen -l pixel")),
 
@@ -126,7 +157,7 @@ keys = [
     Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
     
     # Launch system monitor
-    Key([mod], "t", lazy.spawn("kitty btop")),
+    Key([mod], "t", lazy.spawn("alacritty -e btop")),
     
     # Increase or Decrease focused window opacity
     Key([alt], "m", lazy.window.up_opacity()),
@@ -136,10 +167,10 @@ keys = [
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([alt], "Button1", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button3", lazy.window.disable_floating()),
-    Click([mod], "Button1", lazy.window.bring_to_front(), lazy.window.center())
+    # Click([mod], "Button3", lazy.window.disable_floating()),
+    # Click([mod], "Button1", lazy.window.bring_to_front(), lazy.window.center())
 ]
 
 

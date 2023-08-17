@@ -8,7 +8,7 @@ IMG:/home/anurag/.config/qtile/icons/programming.png	Programming
 	Rstudio	rstudio
 	Jupyter	(jupyter notebook)
 	Emacs	emacs
-	Neo-vim	(kitty --config=.config/qtile/kitty/kitty.conf nvim)
+	Neo-vim	(alacritty -e nvim)
 IMG:/home/anurag/.config/qtile/icons/spotify.png	Spotify		spotify-tray
 IMG:/home/anurag/.config/qtile/icons/terminals.png	Terminal 
 	Kitty	(kitty)

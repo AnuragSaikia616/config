@@ -1,4 +1,4 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
+@import "~/.cache/wal/colors-rofi-light.rasi"
 * {
     font: "Sourcecodepro 20";
 }
@@ -6,7 +6,6 @@ configuration{
     modi: "drun,window,filebrowser";
     icon-theme: "WhiteSur-Light";
     show-icons: true;
-    terminal: "kitty";
     sort: true;
     drun-display-format: "{icon} {name}";
     location: 0;
@@ -25,7 +24,6 @@ window {
     width: 50%;
     height: 700;
     location:       center;
-    fullscreen: false;
     border: 3;
     transparency: "real";
     border-color: @foreground;

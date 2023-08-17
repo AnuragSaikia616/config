@@ -1,9 +1,18 @@
+'''
+╱╭━╮╱╱╱╱╱╱╱╱╭╮
+╱┃╭╯╱╱╱╱╱╱╱╭╯╰╮
+╭╯╰┳╮╭┳━╮╭━┻╮╭╋┳━━┳━╮╭━━╮
+╰╮╭┫┃┃┃╭╮┫╭━┫┃┣┫╭╮┃╭╮┫━━┫
+╱┃┃┃╰╯┃┃┃┃╰━┫╰┫┃╰╯┃┃┃┣━━┃
+╱╰╯╰━━┻╯╰┻━━┻━┻┻━━┻╯╰┻━━╯
+'''
 from libqtile.lazy import lazy
 from libqtile import qtile
 import subprocess
 import os
 from rofi import Rofi
 import random
+import json
 
 # Rofi configuration files
 rofi_panel = Rofi(rofi_args=['-theme', '~/.config/qtile/rofi_panel.rasi'])
@@ -24,7 +33,7 @@ def control_panel(qtile):
     index, key = rofi_panel.select(prompt='Control Panel ', options=options)
     rofi_panel
     if index == 0:
-        os.system("rofi-wifi-menu")
+        os.system("alacritty -e nmtui")
     elif index == 1:
         os.system("rofi-bluetooth -c .config/qtile/rofi_panel.rasi")
     elif index == 2:
@@ -63,6 +72,28 @@ def wallpaper():
     os.system('cp '+home+wallpaper+' .config/qtile/cache/background.jpg')
     os.system('dunstify "Piwal" "Wallpaper Changed!" -u normal')
     os.system('wal -i '+home+wallpaper)
+    qtile.reload_config()
     # os.system('betterlockscreen -u '+home+wallpaper)
     # os.system('dunstify "BETTERLOCKSCREEN" "Lockscreen changed!"')
-    
+   
+with open('.cache/wal/colors.json') as imp_colors:
+    data = json.load(imp_colors) 
+    col = list(data['colors'].values())
+    def get_colors():
+        return [*col]
+
+
+# This function grows and shrinks the current window while maintaining its center
+@lazy.function
+def resize_FW(qtile,width=0,height=0,expand=False):
+    win = qtile.current_window
+    x, y = win.cmd_get_position()
+    win.cmd_resize_floating(width,height)
+    if expand:
+        win.cmd_set_position_floating(x-(width/2),y-(height/2))
+
+@lazy.function
+def move_FW(qtile,x,y):
+    win = qtile.current_window
+    curr_x, curr_y = win.cmd_get_position()
+    win.cmd_set_position_floating(curr_x+x,curr_y+y)
