@@ -1,0 +1,30 @@
+#+title: Readme
+
+
+* This are my Linux Configuration files
+
+    - Qtile (+QtileExtras)
+    - Editors:
+      1. Astrovim [[https://github.com/AstroNvim/AstroNvim]]
+      2. Doom emacs [[https://github.com/doomemacs/doomemacs]]
+    - Conky (widgets)
+     #+begin_src bash
+        sudo pacman -S conky
+     #+end_src
+    - Rofi (Launcher)
+      #+begin_src bash
+        sudo pacman -S rofi
+      #+end_src
+    - Xmenu [[https://github.com/phillbush/xmenu]]
+    - Picom (compositor)
+     #+begin_src bash
+        sudo pacman -S picom
+     #+end_src
+
+** Rice Screenshot:
+
+** Installation:
+#+begin_src bash
+cd config
+cp -r qtile/* ~/.config/qtile/
+#+end_src
