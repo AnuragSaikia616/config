@@ -23,10 +23,10 @@ yay -S qtile qtile-extras-git picom xmenu rofi rofi-screenshot-git rofi-calc rof
 
 ** Rice Screenshot:
 
-[[file:qtile/1.png]]
+[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/1.png]]
 
-[[file:qtile/2.png]]
+[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/2.png]]
 
-[[file:qtile/3.png]]
+[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/3.png]]
 
-file:qtile/4.png
+[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/4.png]]
