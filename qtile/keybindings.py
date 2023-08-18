@@ -1,12 +1,7 @@
 '''
-╭╮╭━╮╱╱╱╱╱╱╭╮╱╱╱╱╱╱╱╭╮
-┃┃┃╭╯╱╱╱╱╱╱┃┃╱╱╱╱╱╱╱┃┃
-┃╰╯╯╭━━┳╮╱╭┫╰━┳┳━╮╭━╯┣┳━╮╭━━┳━━╮
-┃╭╮┃┃┃━┫┃╱┃┃╭╮┣┫╭╮┫╭╮┣┫╭╮┫╭╮┃━━┫
-┃┃┃╰┫┃━┫╰━╯┃╰╯┃┃┃┃┃╰╯┃┃┃┃┃╰╯┣━━┃
-╰╯╰━┻━━┻━╮╭┻━━┻┻╯╰┻━━┻┻╯╰┻━╮┣━━╯
-╱╱╱╱╱╱╱╭━╯┃╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭━╯┃
-╱╱╱╱╱╱╱╰━━╯╱╱╱╱╱╱╱╱╱╱╱╱╱╱╰━━╯
+░▒█░▄▀░█▀▀░█░░█░█▀▀▄░░▀░░█▀▀▄░█▀▄░░▀░░█▀▀▄░█▀▀▀░█▀▀
+░▒█▀▄░░█▀▀░█▄▄█░█▀▀▄░░█▀░█░▒█░█░█░░█▀░█░▒█░█░▀▄░▀▀▄
+░▒█░▒█░▀▀▀░▄▄▄▀░▀▀▀▀░▀▀▀░▀░░▀░▀▀░░▀▀▀░▀░░▀░▀▀▀▀░▀▀▀
 '''
 from libqtile.config import Key, KeyChord, Mouse, Drag, Click
 from functions import *
@@ -21,9 +16,7 @@ browser = "librewolf"
 launcher = "rofi -config .config/qtile/rofi_main.rasi -show drun"
 
 
-# █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄ █▀
-# █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ ▄█
-
+# Keyboard
 keys = [
     # Switch groups
     Key([mod], "period", lazy.screen.next_group()),
@@ -113,7 +106,7 @@ keys = [
         "brightnessctl s 2%-"), desc='brightness Down'),
 
 
-
+   # Open programs
    KeyChord(
            [mod],"o",
            [
@@ -121,6 +114,7 @@ keys = [
                Key([],"e",lazy.spawn('emacs')),
                Key([],"p",lazy.spawn('pycharm')),
                Key([],"s",lazy.spawn('spotify-tray')),
+               Key([],"j",lazy.spawn('jupyter notebook')),
                ]
            ), 
 

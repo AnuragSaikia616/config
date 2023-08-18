@@ -1,10 +1,7 @@
 '''
-╱╭━╮╱╱╱╱╱╱╱╱╭╮
-╱┃╭╯╱╱╱╱╱╱╱╭╯╰╮
-╭╯╰┳╮╭┳━╮╭━┻╮╭╋┳━━┳━╮╭━━╮
-╰╮╭┫┃┃┃╭╮┫╭━┫┃┣┫╭╮┃╭╮┫━━┫
-╱┃┃┃╰╯┃┃┃┃╰━┫╰┫┃╰╯┃┃┃┣━━┃
-╱╰╯╰━━┻╯╰┻━━┻━┻┻━━┻╯╰┻━━╯
+░█▀▀░█░▒█░█▀▀▄░█▀▄░▀█▀░░▀░░▄▀▀▄░█▀▀▄░█▀▀
+░█▀░░█░▒█░█░▒█░█░░░░█░░░█▀░█░░█░█░▒█░▀▀▄
+░▀░░░░▀▀▀░▀░░▀░▀▀▀░░▀░░▀▀▀░░▀▀░░▀░░▀░▀▀▀
 '''
 from libqtile.lazy import lazy
 from libqtile import qtile
@@ -29,7 +26,7 @@ def hide_windows(qtile):
 @lazy.function
 def control_panel(qtile):
     
-    options = ['󰖩 Wifi',' Bluetooth',' Calculator','󱩌 Night Light','󰸉 Piwal','󱪰 Lockscreen BG','󱣴 Screenshot', '󰜉 Restart', '⭘ Poweroff', ' Lock']
+    options = ['󰖩 Wifi',' Bluetooth',' Calculator','󱩌 Night Light','󰸉 Pywal','󱪰 Lockscreen BG','󱣴 Screenshot', '󰜉 Restart', '⭘ Poweroff', ' Lock']
     index, key = rofi_panel.select(prompt='Control Panel ', options=options)
     rofi_panel
     if index == 0:
