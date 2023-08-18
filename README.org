@@ -30,6 +30,6 @@ yay -S qtile qtile-extras-git picom xmenu rofi rofi-screenshot-git rofi-calc rof
 
 #+ATTR_HTML: :alt ss :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/3.png]]
-
-#+ATTR_HTML: :alt ss :align left
+#+CAPTION: Desktop Scrot
+#+ATTR_HTML: :alt Desktop Scrot :title Desktop Scrot :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/4.png]]
