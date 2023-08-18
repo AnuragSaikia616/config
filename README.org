@@ -19,10 +19,10 @@ yay -S qtile qtile-extras-git picom xmenu rofi rofi-screenshot-git rofi-calc rof
 [[.screenshots/1.png]]
 
 #+ATTR_HTML: :alt ss :align left
-[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/2.png]]
+[[.screenshots/2.png]]
 
 #+ATTR_HTML: :alt ss :align left
-[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/3.png]]
+[[.screenshots/3.png]]
 
 #+ATTR_HTML: :alt ss :align left
-[[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/4.png]]
+[[.screenshots/4.png]]
