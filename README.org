@@ -1,21 +1,14 @@
 #+title: Readme
 #+startup: showeverything
 
-* This are my Linux Configuration files
+** My Dotfiles
 
-*Qtile* + Qtile Extras Git (*Note*: Use the "qtile-extras-git" package)
-
-Picom
-
-[[https://github.com/phillbush/xmenu][Xmenu]]
-
-Rofi
-
-Alacritty
-
-Conky
-
-[[https://github.com/dylanaraps/pywal/wiki/Installation][Pywal]]
+- Qtile [[https://qtile.org/]]
+- Qtile Extras Git (*Note*: Use the "qtile-extras-git" package) [[https://github.com/elParaguayo/qtile-extras]]
+- Xmenu [[https://github.com/phillbush/Xmenu]]
+- Rofi [[https://github.com/davatorium/rofi]]
+- Alacritty [[https://github.com/alacritty/alacritty]]
+- Pywal [[https://github.com/dylanaraps/pywal/wiki/Pywal]]
 
 #+begin_src bash
 yay -S qtile qtile-extras-git picom xmenu rofi rofi-screenshot-git rofi-calc rofi-bluetooth rofi-wifi-menu alacritty
