@@ -22,11 +22,14 @@ yay -S qtile qtile-extras-git picom xmenu rofi rofi-screenshot-git rofi-calc rof
 #+end_src
 
 ** Rice Screenshot:
-
+#+ATTR_HTML: :alt ss :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/1.png]]
 
+#+ATTR_HTML: :alt ss :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/2.png]]
 
+#+ATTR_HTML: :alt ss :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/3.png]]
 
+#+ATTR_HTML: :alt ss :align left
 [[https://github.com/AnuragSaikia616/config/blob/master/.screenshots/4.png]]
