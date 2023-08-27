@@ -40,6 +40,7 @@ def control_panel(qtile):
     elif index == 4:
         os.system('./.config/qtile/setwal_script.sh')
         # os.system('wal -i Downloads/wallpapers/')
+        lazy.reload_config()
     elif index == 5:
         os.system('betterlockscreen -u .config/qtile/cache/background.jpg --fx pixel')
         os.system('dunstify "Betterlockscreen" "Lockscreen background set"')
@@ -94,3 +95,7 @@ def move_FW(qtile,x,y):
     win = qtile.current_window
     curr_x, curr_y = win.cmd_get_position()
     win.cmd_set_position_floating(curr_x+x,curr_y+y)
+
+@lazy.function
+def commit_push(qtile):
+    os.system("cd ~/.config/ && git add qtile && git commit -m 'Fly commit' && git push origin master")

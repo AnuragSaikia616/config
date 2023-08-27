@@ -9,7 +9,7 @@ from functions import *
 # modifiers:
 mod="mod4"
 alt = "mod1"
-
+shift = "shift"
 # APPS
 terminal = 'alacritty'
 browser = "librewolf"
@@ -56,10 +56,10 @@ keys = [
     Key([alt,'control'],"k", resize_FW(0,-40,expand=False)),
     Key([alt,'control'],"j", resize_FW(0,40,expand=False)),
     # To move floating windows
-    Key([alt],'l', move_FW(40,0)),
-    Key([alt],'h', move_FW(-40,0)),
-    Key([alt],'k', move_FW(0,-40)),
-    Key([alt],'j', move_FW(0,40)),
+    Key([alt,"shift"],'l', move_FW(40,0)),
+    Key([alt,"shift"],'h', move_FW(-40,0)),
+    Key([alt,"shift"],'k', move_FW(0,-40)),
+    Key([alt,"shift"],'j', move_FW(0,40)),
     # Center focused window
     Key([alt],"c",lazy.window.center()),
 
@@ -101,20 +101,20 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc='playerctl'),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc='playerctl'),
     Key([], "XF86MonBrightnessUp", lazy.spawn(
-        "brightnessctl s 2%+"), desc='brightness UP'),
+        "brightnessctl s 5%+"), desc='brightness UP'),
     Key([], "XF86MonBrightnessDown", lazy.spawn(
-        "brightnessctl s 2%-"), desc='brightness Down'),
+        "brightnessctl s 5%-"), desc='brightness Down'),
 
 
    # Open programs
    KeyChord(
            [mod],"o",
            [
-               Key([],"c", lazy.spawn('code')),
-               Key([],"e",lazy.spawn('emacs')),
-               Key([],"p",lazy.spawn('pycharm')),
-               Key([],"s",lazy.spawn('spotify-tray')),
-               Key([],"j",lazy.spawn('jupyter notebook')),
+               Key([mod],"c", lazy.spawn('code')),
+               Key([mod],"e",lazy.spawn('emacs')),
+               Key([mod],"p",lazy.spawn('pycharm')),
+               Key([mod],"s",lazy.spawn('spotify-tray')),
+               Key([mod],"j",lazy.spawn('jupyter notebook')),
                ]
            ), 
 
@@ -151,7 +151,7 @@ keys = [
     Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
     
     # Launch system monitor
-    Key([mod], "t", lazy.spawn("alacritty -e btop")),
+    Key([mod], "t", lazy.spawn("alacritty -e htop")),
     
     # Increase or Decrease focused window opacity
     Key([alt], "m", lazy.window.up_opacity()),
@@ -163,8 +163,8 @@ mouse = [
          start=lazy.window.get_position()),
     Drag([alt], "Button1", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    # Click([mod], "Button3", lazy.window.disable_floating()),
-    # Click([mod], "Button1", lazy.window.bring_to_front(), lazy.window.center())
+    # Click([], "Button1", lazy.window.bring_to_front()),
+    Click([mod], "Button1", lazy.window.bring_to_front())
 ]
 
 

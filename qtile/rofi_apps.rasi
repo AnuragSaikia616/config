@@ -3,13 +3,13 @@
     font: "Sourcecodepro 20";
 }
 configuration{
-    modi: "drun,window,filebrowser";
+    modi: "drun";
     icon-theme: "WhiteSur-Light";
     show-icons: true;
     sort: true;
     drun-display-format: "{icon} {name}";
     location: 0;
-    disable-history: false;
+    disable-history: true;
     hide-scrollbar: false;
     matching: "prefix";
     display-drun: "   Apps";
@@ -17,12 +17,12 @@ configuration{
     display-window: " 﩯  Windows";
     display-filebrowser: "   FileBrowser";
     display-Network: " 󰤨  Network";
-    sidebar-mode: true;
+    sidebar-mode: false;
+    hover-select: true;
 }
 
 window {
-    width: 50%;
-    height: 700;
+    fullscreen: true;
     location:       center;
     border: 3;
     transparency: "real";
@@ -35,7 +35,7 @@ window {
 inputbar {
     children:   [textbox-prompt-colon,entry ];
 }
- 
+
 textbox-prompt-colon {
     str: "->";
     text-color: @foreground;
@@ -70,7 +70,7 @@ textbox {
 
 listview {
     lines:      10;
-    columns:    2;
+    columns:    3;
 
     fixed-height:   false;
 }
@@ -94,7 +94,7 @@ element.selected.normal, element.selected.active {
 }
 
 element-icon {
-    size:   1.3em;
+    size:   2em;
 }
 
 element-text {

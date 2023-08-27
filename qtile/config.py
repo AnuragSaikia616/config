@@ -4,9 +4,8 @@
 ░░▀▀█▄░░▒█░░░▄█▄░▒█▄▄█░▒█▄▄▄
 '''
 import os
-from libqtile import hook
 import subprocess
-from libqtile import bar, layout, widget, hook, qtile
+from libqtile import bar, layout, hook
 from libqtile.config import Group, Match, hook, Screen, ScratchPad, DropDown
 # from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -32,6 +31,10 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
+                widget.TextBox(
+                    text="commit and push",
+                    mouse_callbacks = {'Button1': commit_push()}
+                ),
                 widget.CurrentLayoutIcon(
                     padding=0,
                     scale=0.5,
@@ -50,7 +53,7 @@ screens = [
                     # inactive = colors['black'],
                     foreground=colors[7],
                     # background=colors['black'],
-                    this_current_screen_border=colors[3],
+                    this_current_screen_border=colors[7],
                     this_screen_border=colors[7],
                     other_current_screen_border='#fff',
                     other_screen_border='#fff',
@@ -78,10 +81,11 @@ screens = [
                 widget.Spacer(length=50),
 
                 widget.TextBox(
-                    foreground=colors[7],
-                  text = '',
+                  foreground=colors[7],
+                  # text = ' ',
+                  text = '  ',
                   fontsize = 23,
-                  mouse_callbacks = {'Button1': lazy.spawn(launcher)}  
+                  mouse_callbacks = {'Button1': lazy.spawn("rofi -config .config/qtile/rofi_apps.rasi -show drun")}  
                 ),
                 widget.Spacer(length=50),
                 widget.TextBox(
@@ -90,7 +94,7 @@ screens = [
                                ),
                 widget.Wlan(
                     format = "{percent:2.0%}", 
-                    mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtur")},
+                    mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtui")},
                     foreground=colors[7],
                 ),
                 widget.Spacer(length=50),
@@ -144,8 +148,8 @@ screens = [
                 
             ],
             bar_thickness,
-            # margin=[5, 5, 0, 5],
-            background="#00000011",
+            # margin=[0, 0, 5, 5],
+            background=colors[3]+"44",
             # opacity=bar_opacity
         ),
     ),
@@ -187,30 +191,30 @@ groups.append(ScratchPad(
 
 # LAYOUT
 
-# _margin = 0
 layouts = [
     layout.Columns(
-                   margin=10, 
-                   border_focus='#0f0',
+                   margin=10,
+                   border_focus=colors[7],
                    border_normal='#000',
                    border_width=3
                    ),
-    #
-    # layout.Max(border_focus='#0f0',
-    #            border_normal='#000',
-    #            # margin=_margin,
-    #            border_width=3,
-    #            ),
+
+    layout.Max(
+        border_focus=colors[7],
+               border_normal='#000',
+               # margin=_margin,
+               border_width=0,
+               ),
 
     layout.Floating(
         border_normal='#000',
-        border_focus='#0f0',
+        border_focus=colors[7],
         # margin=_margin,
         border_width=3,
     ),
-    layout.MonadTall(
-        border_focus=colors[2],
-        ),
+    # layout.MonadTall(
+    #     border_focus=colors[7],
+    #     ),
     # layout.Tile(border_focus=colors[2],
     #             border_normal='#000',
     #             border_width=2,
@@ -219,7 +223,7 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(
-    border_focus='#0f0',
+    border_focus='#fff',
     border_normal='#000',
     border_width=3,
     float_rules=[
@@ -254,7 +258,7 @@ mouse = init_mouse()
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 
 
