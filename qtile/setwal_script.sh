@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set_wall(){
-  wal -i $WALLPAPER # Wal sets wallpaper and genates new color scheme
+  wal -i $WALLPAPER -b '#000000' # Wal sets wallpaper and genates new color scheme
   cp $WALLPAPER ~/.config/qtile/cache/background.jpg
   # betterlockscreen -u $WALLPAPER
   dunstify "Wallpaper" "Background set!" --timeout 2000

@@ -121,6 +121,9 @@ keys = [
     # Spawn rofi launcher
     Key([mod],'p',lazy.spawn(launcher)),
 
+    # Run prompt
+    Key([mod],'r',lazy.spawn("rofi -show run")),
+
     #Spotify Controls
     Key([mod],"right",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
     Key([mod],"left",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
@@ -147,6 +150,8 @@ keys = [
     # Copyq(clipboard) scratchpad
     Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('browser'), desc="open scratchpad browser"),
 
+    # Chatgpt scratchpad
+    Key([mod], "8", lazy.group['scratchpad'].dropdown_toggle('chatgpt')),
     # Launch xmenu 
     Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
     

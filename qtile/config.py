@@ -15,31 +15,35 @@ from qtile_extras import widget
 from keybindings import *
 from spotify import Spotify
 
-default_font = "JetBrainsMono Nerd Font"
+default_font = "Monospace"
 default_fontsize = 18
 bar_opacity = 1
 bar_thickness = 35
 colors = get_colors()
+foreground="#000"
+background="#fff"
+bar_color=colors[3]+ "00"
 # COLORS 
 # colors = {0:"#121212",2:"#ffffff",3:"#ffffff",7:"#ffffff",8:"#666666"}
 
+# WIDGETS
 
-# BAR
+def get_widgets():
+    w = [
+                # widget.TextBox(
+                #     text="",
+                #     fontsize=27,
+                #     mouse_callbacks = {'Button1': commit_push()}
+                # ),
 
-screens = [
-
-    Screen(
-        bottom=bar.Bar(
-            [
                 widget.TextBox(
-                    text="commit and push",
-                    mouse_callbacks = {'Button1': commit_push()}
+                  foreground=colors[7],
+                  # text = ' ',
+                  text = ' ',
+                  fontsize = 23,
+                  mouse_callbacks = {'Button1': lazy.spawn("rofi -config .config/qtile/rofi_apps.rasi -show drun")}
                 ),
-                widget.CurrentLayoutIcon(
-                    padding=0,
-                    scale=0.5,
-                    foreground=colors[7]
-                ),
+
 
 
                 widget.GroupBox(
@@ -49,7 +53,7 @@ screens = [
                     active=colors[7],
                     block_highlight_text_color=colors[7],
                     highlight_color="#00000000",
-                    inactive='#666',
+                    inactive=colors[9],
                     # inactive = colors['black'],
                     foreground=colors[7],
                     # background=colors['black'],
@@ -62,43 +66,41 @@ screens = [
                     disable_drag=True,
                 ),
 
+                widget.CurrentLayoutIcon(
+                    padding=0,
+                    scale=0.5,
+                    foreground=colors[7]
+                ),
                 widget.TaskList(
                     border=colors[7],
                     foreground=colors[0],
-                    unfocused_border='#555',
-                    max_title_width=300,
+                    unfocused_border='#888',
+                    # max_title_width=300,
                     highlight_method='block',
                     title_width_method='uniform',
-                    rounded=False,
+                    rounded=True,
                     # font = default_font+' Bold'
                 ),
 
                 Spotify(
                     foreground=colors[7],
-                    play_icon="",
                     format="{icon} {artist} - {track}"
                 ),
-                widget.Spacer(length=50),
+                widget.Spacer(length=0),
 
-                widget.TextBox(
-                  foreground=colors[7],
-                  # text = ' ',
-                  text = '  ',
-                  fontsize = 23,
-                  mouse_callbacks = {'Button1': lazy.spawn("rofi -config .config/qtile/rofi_apps.rasi -show drun")}  
-                ),
+
                 widget.Spacer(length=50),
                 widget.TextBox(
                     text = "󰤨",fontsize = 28,
                     foreground = colors[7],
                                ),
                 widget.Wlan(
-                    format = "{percent:2.0%}", 
+                    format = "{percent:2.0%}",
                     mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtui")},
                     foreground=colors[7],
                 ),
                 widget.Spacer(length=50),
-            
+
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 6 Free Solid",
@@ -129,7 +131,7 @@ screens = [
                     text_discharging='{percentage:.0f}% {tte}',
                     text_displaytime=2,
                 ),
-               
+
 
 
                 widget.Spacer(length=50),
@@ -142,14 +144,26 @@ screens = [
                     # format='%a %d-%m-%y ',
                     # foreground=colors['white'],
                     # background=colors[0],
-                    mouse_callbacks = {'Button1': control_panel()} 
+                    mouse_callbacks = {'Button1': control_panel()}
                 ),
+                widget.Pomodoro(
+                    prefix_inactive="󱎫",
+                    color_inactive=colors[7],
+                    length_pomodori=50,
+                ),
+    ]
+    return w
 
-                
-            ],
+# BAR
+
+screens = [
+
+    Screen(
+        bottom=bar.Bar(
+            get_widgets(),
             bar_thickness,
             # margin=[0, 0, 5, 5],
-            background=colors[3]+"44",
+            background=bar_color,
             # opacity=bar_opacity
         ),
     ),
@@ -159,7 +173,7 @@ screens = [
 
 # GROUPS
 
-groups = [Group(f"{i}", label=i) for i in range(1, 6)]
+groups = [Group(f"{i}", label=i) for i in range(1, 8)]
 
 for i in groups:
     keys.extend(
@@ -182,8 +196,9 @@ for i in groups:
 scratch = terminal
 groups.append(ScratchPad(
     "scratchpad", [DropDown("term", scratch,
-                            width=0.6, height=0.6, x=0.2, y=0.2, opacity=1),
-                   DropDown("browser", "copyq",width=0.6,height=0.6,x=0.2,y=0.2,opacity=1),
+                            width=0.6, height=0.6, x=0.2, y=0.01, opacity=1),
+                   DropDown("browser", "copyq",width=0.6,height=0.6,x=0.2,y=0.01,opacity=1),
+                   DropDown("chatgpt", "chromium --app=https://chat.openai.com",width=0.6,height=0.6,x=0.2,y=0.01,opacity=1),
                    ]))
 
 
