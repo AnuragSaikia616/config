@@ -17,12 +17,12 @@ from spotify import Spotify
 
 default_font = "Monospace"
 default_fontsize = 18
-bar_opacity = 1
+bar_opacity = 0
 bar_thickness = 35
 colors = get_colors()
 foreground="#000"
 background="#fff"
-bar_color=colors[3]+ "00"
+bar_color=colors[0] + "ff"
 # COLORS 
 # colors = {0:"#121212",2:"#ffffff",3:"#ffffff",7:"#ffffff",8:"#666666"}
 
@@ -50,14 +50,14 @@ def get_widgets():
                     padding=12,
                     borderwidth=5,
                     highlight_method='line',
-                    active=colors[7],
-                    block_highlight_text_color=colors[7],
+                    active="#090",
+                    block_highlight_text_color=colors[2],
                     highlight_color="#00000000",
-                    inactive=colors[9],
+                    inactive=colors[7],
                     # inactive = colors['black'],
                     foreground=colors[7],
                     # background=colors['black'],
-                    this_current_screen_border=colors[7],
+                    this_current_screen_border=bar_color,
                     this_screen_border=colors[7],
                     other_current_screen_border='#fff',
                     other_screen_border='#fff',
@@ -69,7 +69,7 @@ def get_widgets():
                 widget.CurrentLayoutIcon(
                     padding=0,
                     scale=0.5,
-                    foreground=colors[7]
+                    # foreground=colors[7]
                 ),
                 widget.TaskList(
                     border=colors[7],
@@ -86,25 +86,30 @@ def get_widgets():
                     foreground=colors[7],
                     format="{icon} {artist} - {track}"
                 ),
-                widget.Spacer(length=0),
 
 
-                widget.Spacer(length=50),
+                widget.Spacer(length=30),
+
+                widget.CPU(
+                    format='  {load_percent}%'
+                        ),
+                widget.Spacer(length=30),
                 widget.TextBox(
-                    text = "󰤨",fontsize = 28,
+                    text = "󰤨",
+                    fontsize = 18,
                     foreground = colors[7],
-                               ),
+               ),
                 widget.Wlan(
                     format = "{percent:2.0%}",
                     mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtui")},
                     foreground=colors[7],
                 ),
-                widget.Spacer(length=50),
+                widget.Spacer(length=30),
 
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 6 Free Solid",
-                    fontsize=27,
+                    fontsize=18,
                     padding=0,
                     foreground=colors[7],
                     # background=colors['black'],
@@ -114,7 +119,7 @@ def get_widgets():
                     foreground=colors[7],
                     # background=colors['black']
                 ),
-                widget.Spacer(length=50),
+                widget.Spacer(length=30),
 
 
                 widget.UPowerWidget(
@@ -122,11 +127,11 @@ def get_widgets():
                     fill_charge='#0e0',
                     fill_low="#f00",
                     border_critical_colour='#f00',
-                    border_charge_colour="#dbdbe0",
+                    border_charge_colour=colors[7],
                     fill_normal=colors[7],
                     border_colour=colors[7],
-                    battery_height=16,
-                    battery_width=40,
+                    battery_height=14,
+                    battery_width=30,
                     text_charging=' {percentage:.0f}% {ttf}',
                     text_discharging='{percentage:.0f}% {tte}',
                     text_displaytime=2,
@@ -134,7 +139,7 @@ def get_widgets():
 
 
 
-                widget.Spacer(length=50),
+                widget.Spacer(length=30),
 
 
                 widget.Clock(
@@ -146,8 +151,10 @@ def get_widgets():
                     # background=colors[0],
                     mouse_callbacks = {'Button1': control_panel()}
                 ),
+                widget.Spacer(length=10),
                 widget.Pomodoro(
                     prefix_inactive="󱎫",
+                    fontsize=18,
                     color_inactive=colors[7],
                     length_pomodori=50,
                 ),
@@ -162,18 +169,28 @@ screens = [
         bottom=bar.Bar(
             get_widgets(),
             bar_thickness,
-            # margin=[0, 0, 5, 5],
+            # margin=[0, 10, 5, 10],
             background=bar_color,
             # opacity=bar_opacity
         ),
     ),
+    Screen(
+        bottom=bar.Bar(
+            get_widgets(),
+            bar_thickness,
+            # margin=[0, 10, 5, 10],
+            background=bar_color,
+            # opacity=bar_opacity
+        ),
+    ),
+
 ]
 
 
 
 # GROUPS
 
-groups = [Group(f"{i}", label=i) for i in range(1, 8)]
+groups = [Group(f"{i}", label=i) for i in range(1, 6)]
 
 for i in groups:
     keys.extend(
@@ -207,26 +224,28 @@ groups.append(ScratchPad(
 # LAYOUT
 
 layouts = [
+
     layout.Columns(
                    margin=10,
                    border_focus=colors[7],
                    border_normal='#000',
                    border_width=3
                    ),
-
-    layout.Max(
-        border_focus=colors[7],
-               border_normal='#000',
-               # margin=_margin,
-               border_width=0,
-               ),
-
     layout.Floating(
         border_normal='#000',
         border_focus=colors[7],
         # margin=_margin,
         border_width=3,
     ),
+
+    # layout.Max(
+    #     border_focus=colors[7],
+    #            border_normal='#000',
+    #            # margin=_margin,
+    #            border_width=0,
+    #            ),
+
+
     # layout.MonadTall(
     #     border_focus=colors[7],
     #     ),
@@ -259,7 +278,8 @@ floating_layout = layout.Floating(
 # DEFAULTS for widgets
 widget_defaults = dict(
     font = default_font,
-    fontsize = default_fontsize
+    fontsize = default_fontsize,
+    foreground = colors[7]
 )
 extension_defaults = [widget_defaults.copy()]
 

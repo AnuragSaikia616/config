@@ -110,26 +110,23 @@ keys = [
    KeyChord(
            [mod],"o",
            [
-               Key([mod],"c", lazy.spawn('code')),
-               Key([mod],"e",lazy.spawn('emacs')),
-               Key([mod],"p",lazy.spawn('pycharm')),
-               Key([mod],"s",lazy.spawn('spotify-tray')),
-               Key([mod],"j",lazy.spawn('jupyter notebook')),
+               Key([],"c", lazy.spawn('code')),
+               Key([],"e",lazy.spawn('emacs')),
+               Key([],"p",lazy.spawn('pycharm')),
+               Key([],"s",lazy.spawn('spotify-tray')),
+               Key([],"j",lazy.spawn('jupyter notebook')),
                ]
            ), 
 
     # Spawn rofi launcher
-    Key([mod],'p',lazy.spawn(launcher)),
-
-    # Run prompt
-    Key([mod],'r',lazy.spawn("rofi -show run")),
+    Key([mod],'space',lazy.spawn(launcher)),
 
     #Spotify Controls
     Key([mod],"right",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
     Key([mod],"left",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
 
     #Spawn rofi control panel
-    Key([mod,'control'],"p",control_panel()),
+    Key([alt],"space",control_panel()),
 
 
     # Launch Terminal
@@ -159,8 +156,8 @@ keys = [
     Key([mod], "t", lazy.spawn("alacritty -e htop")),
     
     # Increase or Decrease focused window opacity
-    Key([alt], "m", lazy.window.up_opacity()),
-    Key([alt], "n", lazy.window.down_opacity()),
+    Key([mod], "Up", lazy.spawn("picom-trans -c -o +10")),
+    Key([mod], "Down", lazy.spawn("picom-trans -c -o -10")),
 ]
 
 mouse = [
