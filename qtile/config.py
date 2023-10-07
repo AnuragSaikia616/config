@@ -238,12 +238,12 @@ layouts = [
         border_width=3,
     ),
 
-    # layout.Max(
-    #     border_focus=colors[7],
-    #            border_normal='#000',
-    #            # margin=_margin,
-    #            border_width=0,
-    #            ),
+    layout.Max(
+        border_focus=colors[7],
+               border_normal='#000',
+               # margin=_margin,
+               border_width=0,
+               ),
 
 
     # layout.MonadTall(

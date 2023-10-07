@@ -119,14 +119,14 @@ keys = [
            ), 
 
     # Spawn rofi launcher
-    Key([mod],'space',lazy.spawn(launcher)),
+    Key([alt],'space',lazy.spawn(launcher)),
 
     #Spotify Controls
     Key([mod],"right",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
     Key([mod],"left",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
 
     #Spawn rofi control panel
-    Key([alt],"space",control_panel()),
+    Key([alt],"return",control_panel()),
 
 
     # Launch Terminal
