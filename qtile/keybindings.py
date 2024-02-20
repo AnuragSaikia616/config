@@ -12,8 +12,10 @@ alt = "mod1"
 shift = "shift"
 # APPS
 terminal = 'alacritty'
-browser = "librewolf"
-launcher = "rofi -config .config/qtile/rofi_main.rasi -show drun"
+browser = "chromium"
+launcher = "rofi -config .config/qtile/rofi_main.rasi -show drun -show-icons"
+# launcher = 'rofi -show drun -show-icons'
+filebrowser = 'thunar'
 
 
 # Keyboard
@@ -28,7 +30,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="change focus"),
+    Key([mod], "space", lazy.group.next_window(), lazy.window.bring_to_front(), desc="change focus"),
 
 
     # Move windows between left/right columns or move up/down in current stack.
@@ -47,19 +49,19 @@ keys = [
     Key([mod, "control"], "k", lazy.layout.grow_up(),lazy.layout.grow(), desc="Grow window up"),
     
     # To grow and shrink floating windows
-    Key([alt,"control"],"x",resize_FW(30,30,expand=True)), 
-    Key([alt,"control"],"z",resize_FW(-30,-30,expand=True)), 
+    Key([mod,"control"],"x",resize_FW(30,30,expand=True)), 
+    Key([mod,"control"],"z",resize_FW(-30,-30,expand=True)), 
     
     # To resize floating windows
-    Key([alt,'control'],"l", resize_FW(40,0,expand=False)),
-    Key([alt,'control'],"h", resize_FW(-40,0,expand=False)),
-    Key([alt,'control'],"k", resize_FW(0,-40,expand=False)),
-    Key([alt,'control'],"j", resize_FW(0,40,expand=False)),
+    Key([mod,'control'],"right", resize_FW(40,0,expand=False)),
+    Key([mod,'control'],"left", resize_FW(-40,0,expand=False)),
+    Key([mod,'control'],"up", resize_FW(0,-40,expand=False)),
+    Key([mod,'control'],"down", resize_FW(0,40,expand=False)),
     # To move floating windows
-    Key([alt,"shift"],'l', move_FW(40,0)),
-    Key([alt,"shift"],'h', move_FW(-40,0)),
-    Key([alt,"shift"],'k', move_FW(0,-40)),
-    Key([alt,"shift"],'j', move_FW(0,40)),
+    Key([mod,"shift"],'right', move_FW(40,0)),
+    Key([mod,"shift"],'left', move_FW(-40,0)),
+    Key([mod,"shift"],'up', move_FW(0,-40)),
+    Key([mod,"shift"],'down', move_FW(0,40)),
     # Center focused window
     Key([alt],"c",lazy.window.center()),
 
@@ -106,28 +108,25 @@ keys = [
         "brightnessctl s 5%-"), desc='brightness Down'),
 
 
-   # Open programs
-   KeyChord(
-           [mod],"o",
-           [
-               Key([],"c", lazy.spawn('code')),
-               Key([],"e",lazy.spawn('emacs')),
-               Key([],"p",lazy.spawn('pycharm')),
-               Key([],"s",lazy.spawn('spotify-tray')),
-               Key([],"j",lazy.spawn('jupyter notebook')),
-               ]
-           ), 
+    Key([mod], "y", lazy.spawn("chromium --app='https://youtube.com'")),
 
     # Spawn rofi launcher
-    Key([alt],'space',lazy.spawn(launcher)),
+    Key([mod],'p',lazy.spawn(launcher)),
+
+    # Run
+    Key([mod], "r", lazy.spawn("rofi -show run")),
 
     #Spotify Controls
-    Key([mod],"right",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
-    Key([mod],"left",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
+    Key([mod],"bracketright",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
+    Key([mod],"bracketleft",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous')),
+    Key([mod],"backslash",lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause')),
 
     #Spawn rofi control panel
-    Key([alt],"return",control_panel()),
+    Key([mod,"control"],"p",control_panel()),
 
+    #Spawn apps
+    Key([mod], "a", lazy.spawn(launcher)),
+    Key([mod], "o", lazy.spawn("obsidian")),
 
     # Launch Terminal
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -145,12 +144,16 @@ keys = [
     Key([mod], "0", lazy.group['scratchpad'].dropdown_toggle('term'),),
 
     # Copyq(clipboard) scratchpad
-    Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('browser'), desc="open scratchpad browser"),
+    Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('notes'), desc="open scratchpad localSend"),
 
     # Chatgpt scratchpad
-    Key([mod], "8", lazy.group['scratchpad'].dropdown_toggle('chatgpt')),
+    Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('chatgpt')),
     # Launch xmenu 
-    Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
+    # Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
+    
+    # Launch filebrowser
+    Key([mod], "e", lazy.group['scratchpad'].dropdown_toggle('files')),
+
     
     # Launch system monitor
     Key([mod], "t", lazy.spawn("alacritty -e htop")),

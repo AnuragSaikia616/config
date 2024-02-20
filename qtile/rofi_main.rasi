@@ -1,14 +1,14 @@
-@import "~/.cache/wal/colors-rofi-light.rasi"
+@import "~/.cache/wal/colors-rofi-dark.rasi"
 * {
-    font: "Sourcecodepro 20";
+    font: "JetBrains Mono Nerd Font 16";
 }
 configuration{
-    modi: "drun,window,filebrowser";
-    icon-theme: "WhiteSur-Light";
-    show-icons: true;
+    modi: "drun,filebrowser";
+    icon-theme: "Papirus";
+    show-icons: false;
     sort: true;
     drun-display-format: "{icon} {name}";
-    location: 0;
+    location: 7;
     disable-history: false;
     hide-scrollbar: false;
     matching: "prefix";
@@ -21,15 +21,15 @@ configuration{
 }
 
 window {
-    width: 50%;
-    height: 700;
-    location:       center;
-    border: 3;
+    width: 30%;
+    height: 750;
+    border: 1;
     transparency: "real";
     border-color: @foreground;
     margin: 0;
     padding:    3;
     spacing:    0;
+    y-offset:  -45px;
 }
 
 inputbar {
@@ -70,8 +70,9 @@ textbox {
 
 listview {
     lines:      10;
-    columns:    2;
-
+    columns:    1;
+    border:     1 0 1 0;
+    border-color: @foreground;
     fixed-height:   false;
 }
 
@@ -87,14 +88,14 @@ element.normal.active {
 }
 
 element.selected.normal, element.selected.active {
-    background-color:   @selected-normal-background;
+    background-color:   @selected-urgent-background;
     text-color:         @background;
     border: 3px 3px 3px 3;
-    border-color: @foreground;
+    border-color: @background;
 }
 
 element-icon {
-    size:   1.3em;
+    size:   1.8em;
 }
 
 element-text {
@@ -102,8 +103,8 @@ element-text {
     text-color: inherit;
 }
 button selected{
-background-color: @active-background;
+background-color: @selected-urgent-background;
 text-color: @background;
-border-color: @foreground;
+border-color: @background;
 border: 3;
 }

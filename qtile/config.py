@@ -15,8 +15,8 @@ from qtile_extras import widget
 from keybindings import *
 from spotify import Spotify
 
-default_font = "Monospace"
-default_fontsize = 18
+default_font = "Jetbrainsmono Nerd Font"
+default_fontsize = 20
 bar_opacity = 0
 bar_thickness = 35
 colors = get_colors()
@@ -30,134 +30,138 @@ bar_color=colors[0] + "ff"
 
 def get_widgets():
     w = [
-                # widget.TextBox(
-                #     text="",
-                #     fontsize=27,
-                #     mouse_callbacks = {'Button1': commit_push()}
-                # ),
-
-                widget.TextBox(
-                  foreground=colors[7],
-                  # text = ' ',
-                  text = ' ',
-                  fontsize = 23,
-                  mouse_callbacks = {'Button1': lazy.spawn("rofi -config .config/qtile/rofi_apps.rasi -show drun")}
-                ),
-
-
+        widget.TextBox(
+            text="#",
+            fontsize=27,
+            foreground=colors[0],
+            background=colors[3],
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -config ~/.config/qtile/rofi_main.rasi -show-icons")}
+        ),
 
                 widget.GroupBox(
                     padding=12,
-                    borderwidth=5,
+                    borderwidth=3,
+                    # spacing=15,
+                    rounded=False,
                     highlight_method='line',
                     active="#090",
-                    block_highlight_text_color=colors[2],
-                    highlight_color="#00000000",
-                    inactive=colors[7],
+                    block_highlight_text_color=colors[7],
+                    highlight_color=colors[0],
+                    inactive="#444444",
                     # inactive = colors['black'],
                     foreground=colors[7],
                     # background=colors['black'],
-                    this_current_screen_border=bar_color,
+                    this_current_screen_border=colors[0],
                     this_screen_border=colors[7],
                     other_current_screen_border='#fff',
                     other_screen_border='#fff',
                     urgent_border='#fff',
-                    rounded=False,
                     disable_drag=True,
+                    hide_unused=False,
                 ),
 
-                widget.CurrentLayoutIcon(
-                    padding=0,
-                    scale=0.5,
-                    # foreground=colors[7]
-                ),
+
+                # widget.WindowName(),
+
+                # widget.Spacer(length=30),
                 widget.TaskList(
-                    border=colors[7],
-                    foreground=colors[0],
-                    unfocused_border='#888',
-                    # max_title_width=300,
+                    border=colors[1],
+                    foreground=colors[7],
+                    unfocused_border='#222',
+                    # max_title_width=400,
                     highlight_method='block',
                     title_width_method='uniform',
-                    rounded=True,
-                    # font = default_font+' Bold'
+                    rounded=False,
+                    font="Jetbrainsmono nerd font",
+                    margin=0,
+                    padding=4,
+                    borderwidth=1,
                 ),
 
-                Spotify(
-                    foreground=colors[7],
-                    format="{icon} {artist} - {track}"
-                ),
+                # Spotify(
+                #     foreground=colors[7],
+                #     font="Jetbrainsmono nerd font",
+                #     format="{icon} {artist} - {track}",
+                #     # format="{icon} {track}",
+                #     width=250,
+                #     scroll=True,
+                #     scroll_interval=0.02,
+                # ),
 
 
-                widget.Spacer(length=30),
+                widget.Spacer(length=10),
 
-                widget.CPU(
-                    format='  {load_percent}%'
-                        ),
-                widget.Spacer(length=30),
-                widget.TextBox(
-                    text = "󰤨",
-                    fontsize = 18,
-                    foreground = colors[7],
-               ),
+                # widget.CPU(
+                #     format='  {load_percent}%'
+                #         ),
+                # widget.Spacer(length=10),
+
+                widget.Systray(icon_size = 33,
+                               background=colors[5],),
                 widget.Wlan(
-                    format = "{percent:2.0%}",
+                    format = " {percent:2.0%}",
                     mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtui")},
-                    foreground=colors[7],
+                    foreground=colors[0],
+                    background=colors[5],
                 ),
-                widget.Spacer(length=30),
+
+                widget.Spacer(length=10,),
+
+
+                widget.Battery(
+                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                    charge_char="󱐋",
+                    discharge_char="󰁹",
+                    update_interval=5,
+                    low_percentage=0.20,
+                    low_foreground="#000",
+                    low_background="#f55",
+                    foreground="#000",
+                    background="#7a5"
+        ),
+                widget.Spacer(length=10),
+                widget.TextBox(
+                    text=" ",
+                    # font="Font Awesome 6 Free Solid",
+                    padding=5,
+                    foreground=colors[0],
+                    background=colors[12],
+                ),
+                widget.Backlight(
+                    backlight_name="intel_backlight",
+                    format = "{percent:2.0%}",
+                    foreground=colors[0],
+                background=colors[12]
+                ),
+
+                widget.Spacer(length=10),
 
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 6 Free Solid",
-                    fontsize=18,
-                    padding=0,
-                    foreground=colors[7],
-                    # background=colors['black'],
-                    mouse_callbacks={"Button1": lazy.spawn('pavucontrol')}
+                    padding=5,
+                    foreground=colors[0],
+                    background=colors[6],
                 ),
                 widget.Volume(
-                    foreground=colors[7],
-                    # background=colors['black']
+                    foreground=colors[0],
+                    background=colors[6],
+                    fmt=" {} ",
+                    padding=0,
                 ),
-                widget.Spacer(length=30),
-
-
-                widget.UPowerWidget(
-                    margin=0,
-                    fill_charge='#0e0',
-                    fill_low="#f00",
-                    border_critical_colour='#f00',
-                    border_charge_colour=colors[7],
-                    fill_normal=colors[7],
-                    border_colour=colors[7],
-                    battery_height=14,
-                    battery_width=30,
-                    text_charging=' {percentage:.0f}% {ttf}',
-                    text_discharging='{percentage:.0f}% {tte}',
-                    text_displaytime=2,
-                ),
-
-
-
-                widget.Spacer(length=30),
-
-
-                widget.Clock(
-                    format='%I:%M %p',
-                    # format=' %B-%d %I:%M %p ',
-                    foreground=colors[7],
+                widget.Spacer(length=10),
+        widget.Clock(
+                    # format='%I:%M %p',
+                    format='%b-%d | %I:%M %p ',
+                    foreground=colors[0],
+                    background=colors[8],
+                    margin=3,
+                    padding=5,
                     # format='%a %d-%m-%y ',
                     # foreground=colors['white'],
                     # background=colors[0],
-                    mouse_callbacks = {'Button1': control_panel()}
-                ),
-                widget.Spacer(length=10),
-                widget.Pomodoro(
-                    prefix_inactive="󱎫",
-                    fontsize=18,
-                    color_inactive=colors[7],
-                    length_pomodori=50,
-                ),
+        ),
+
     ]
     return w
 
@@ -171,16 +175,10 @@ screens = [
             bar_thickness,
             # margin=[0, 10, 5, 10],
             background=bar_color,
-            # opacity=bar_opacity
-        ),
-    ),
-    Screen(
-        bottom=bar.Bar(
-            get_widgets(),
-            bar_thickness,
-            # margin=[0, 10, 5, 10],
-            background=bar_color,
-            # opacity=bar_opacity
+            # opacity=bar_opacity,
+            # margin=[5,5,0,5],
+            border_width=[5,5,5,5],
+            border_color=[colors[0],colors[0],colors[0],colors[0]],
         ),
     ),
 
@@ -190,7 +188,7 @@ screens = [
 
 # GROUPS
 
-groups = [Group(f"{i}", label=i) for i in range(1, 6)]
+groups = [Group(f"{i}", label=i) for i in range(1, 8)]
 
 for i in groups:
     keys.extend(
@@ -212,10 +210,9 @@ for i in groups:
     )
 scratch = terminal
 groups.append(ScratchPad(
-    "scratchpad", [DropDown("term", scratch,
-                            width=0.6, height=0.6, x=0.2, y=0.01, opacity=1),
-                   DropDown("browser", "copyq",width=0.6,height=0.6,x=0.2,y=0.01,opacity=1),
-                   DropDown("chatgpt", "chromium --app=https://chat.openai.com",width=0.6,height=0.6,x=0.2,y=0.01,opacity=1),
+    "scratchpad", [DropDown("term", scratch,on_focus_lost_hide=False,width=0.5, height=0.5, x=0.25, y=0.01, opacity=1),
+                   DropDown("files", filebrowser,on_focus_lost_hide=False, width=0.8, height=0.8, x=0.1, y=0.0, opacity=1),
+                   DropDown("chatgpt", "chromium --app=https://chat.openai.com",width=0.6,height=0.6,on_focus_lost_hide=False,x=0.2,y=0.01,opacity=1),
                    ]))
 
 
@@ -226,40 +223,23 @@ groups.append(ScratchPad(
 layouts = [
 
     layout.Columns(
-                   margin=10,
-                   border_focus=colors[7],
+                   margin=0,
+                   border_focus=colors[3],
                    border_normal='#000',
                    border_width=3
                    ),
-    layout.Floating(
-        border_normal='#000',
-        border_focus=colors[7],
-        # margin=_margin,
-        border_width=3,
-    ),
-
     layout.Max(
         border_focus=colors[7],
                border_normal='#000',
                # margin=_margin,
                border_width=0,
                ),
-
-
-    # layout.MonadTall(
-    #     border_focus=colors[7],
-    #     ),
-    # layout.Tile(border_focus=colors[2],
-    #             border_normal='#000',
-    #             border_width=2,
-    #             # margin=_margin
-    #             ),
 ]
 
 floating_layout = layout.Floating(
-    border_focus='#fff',
+    border_focus='#0a0',
     border_normal='#000',
-    border_width=3,
+    border_width=2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,

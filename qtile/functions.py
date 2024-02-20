@@ -12,7 +12,8 @@ import random
 import json
 
 # Rofi configuration files
-rofi_panel = Rofi(rofi_args=['-theme', '~/.config/qtile/rofi_panel.rasi'])
+rofi_panel = Rofi(rofi_args=['-theme', '~/.config/qtile/rofi_main.rasi'])
+# rofi_panel = Rofi(rofi_args=['-theme', '~/.config/rofi/config.rasi'])
 
 
 
@@ -26,21 +27,21 @@ def hide_windows(qtile):
 @lazy.function
 def control_panel(qtile):
     
-    options = ['󰖩 Wifi',' Bluetooth',' Calculator','󱩌 Night Light','󰸉 Pywal','󱪰 Lockscreen BG','󱣴 Screenshot', '󰜉 Restart', '⭘ Poweroff', ' Lock']
-    index, key = rofi_panel.select(prompt='Control Panel ', options=options)
+    options = ['󰖩 wifi',' bluetooth',' calculator','󱩌 night light','󰸉 wallpaper','󱪰 lockscreen BG','󱣴 screenshot', '󰜉 Restart', '⭘ Poweroff', ' Lock']
+    index, key = rofi_panel.select(prompt='System', options=options)
     rofi_panel
     if index == 0:
-        os.system("alacritty -e nmtui")
+        os.system("rofi-wifi-menu")
     elif index == 1:
         os.system("rofi-bluetooth -c .config/qtile/rofi_panel.rasi")
     elif index == 2:
         os.system('rofi -show calc')
     elif index == 3:
-        night_light()
+        nl.toggle()
     elif index == 4:
-        os.system('./.config/qtile/setwal_script.sh')
-        # os.system('wal -i Downloads/wallpapers/')
-        lazy.reload_config()
+        # os.system('./.config/qtile/setwal_script.sh')waterfox
+        os.system('wal -i Downloads/wallpapers/')
+        qtile.reload_config()
     elif index == 5:
         os.system('betterlockscreen -u .config/qtile/cache/background.jpg --fx pixel')
         os.system('dunstify "Betterlockscreen" "Lockscreen background set"')
@@ -54,26 +55,19 @@ def control_panel(qtile):
         os.system("betterlockscreen -l pixel")
         
 # Night Light
-def night_light():
-    options = ['ON (5000k)','Off (6500k)']
-    index, key = rofi_panel.select(prompt='Night Light', options=options)
+class nightLight:
+    def __init__(self):
+        self.isNight = False
+    def toggle(self):
+        if self.isNight == False:
+            os.system("redshift -P -O 3000k")
+            self.isNight = True
+        elif self.isNight == True:
+            os.system("redshift -P -O 6500k")
+            self.isNight = False
+nl = nightLight()
 
-    if index == 0:
-        os.system("redshift -P -O 5000k")
-    elif index == 1:
-        os.system("redshift -P -O 6500k")
-
-# Piwal random wallpaper and betterlockscreen 
-def wallpaper():
-    home = 'Downloads/wallpapers/'
-    wallpaper = random.choice(os.listdir(home))
-    os.system('cp '+home+wallpaper+' .config/qtile/cache/background.jpg')
-    os.system('dunstify "Piwal" "Wallpaper Changed!" -u normal')
-    os.system('wal -i '+home+wallpaper)
-    qtile.reload_config()
-    # os.system('betterlockscreen -u '+home+wallpaper)
-    # os.system('dunstify "BETTERLOCKSCREEN" "Lockscreen changed!"')
-   
+# PyWal colors from cache   
 with open('.cache/wal/colors.json') as imp_colors:
     data = json.load(imp_colors) 
     col = list(data['colors'].values())

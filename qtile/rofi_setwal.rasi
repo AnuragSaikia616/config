@@ -12,14 +12,17 @@ configuration{
     display-file-browser-extended: "Pick Wallpaper";
 }
 window {
-    location: northeast;
+    fullscreen: true;
+    location: center;
     background-color: @background;
-    width: 25%;
-    height: 100%;
-    border: -35;
+    width: 70%;
+    height: 70%;
+    border: 3;
+    border-color: @foreground;
 }
 listview {
     fixed-height:   true;
+    columns:        4;
     border:         3px 0 0;
     border-color:   @foreground;
 }
@@ -48,5 +51,5 @@ element-text {
 }
 
 element-icon {
-    size: 140px;
+    size: 230px;
 }

@@ -1,4 +1,4 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
+@import "~/.cache/wal/colors-rofi-light.rasi"
 * {
     font: "Sourcecodepro 20";
 }
@@ -76,7 +76,7 @@ listview {
 }
 
 element {
-    padding:            10px 16px;
+    padding:            33px 16px;
     spacing:            16px;
     background-color:   transparent;
 }
@@ -94,7 +94,7 @@ element.selected.normal, element.selected.active {
 }
 
 element-icon {
-    size:   2em;
+    size:   3em;
 }
 
 element-text {
