@@ -7,13 +7,8 @@ import os
 import subprocess
 from libqtile import bar, layout, hook
 from libqtile.config import Group, Match, hook, Screen, ScratchPad, DropDown
-# from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.dgroups import simple_key_binder
-from libqtile import extension
 from qtile_extras import widget
 from keybindings import *
-from spotify import Spotify
 
 default_font = "Jetbrainsmono Nerd Font"
 default_fontsize = 20
@@ -30,14 +25,30 @@ bar_color=colors[0] + "ff"
 
 def get_widgets():
     w = [
-        widget.TextBox(
-            text="#",
-            fontsize=27,
-            foreground=colors[0],
-            background=colors[3],
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show drun -config ~/.config/qtile/rofi_main.rasi -show-icons")}
+        widget.Clock(
+                    # format='%I:%M %p',
+                    format='  %b-%d | %I:%M %p ',
+                    foreground=colors[0],
+                    background=colors[8],
+                    margin=3,
+                    padding=5,
         ),
+        #         widget.TextBox(
+        #             #magnifier icon
+        #             text="  Search",
+        #             foreground=colors[0],
+        #             background=colors[1],
+        #     mouse_callbacks = {'Button1': lazy.spawn(launcher), 'Button3': control_panel()},
+        # ),
 
+        widget.CurrentLayout(),
+        widget.WindowCount(
+            foreground=colors[0],
+            background=colors[7],
+            fmt="󰖲 {}"
+        ),
+        widget.WindowName(),
+                widget.Spacer(),
                 widget.GroupBox(
                     padding=12,
                     borderwidth=3,
@@ -60,58 +71,18 @@ def get_widgets():
                     hide_unused=False,
                 ),
 
-
-                # widget.WindowName(),
-
-                # widget.Spacer(length=30),
-                widget.TaskList(
-                    border=colors[1],
-                    foreground=colors[7],
-                    unfocused_border='#222',
-                    # max_title_width=400,
-                    highlight_method='block',
-                    title_width_method='uniform',
-                    rounded=False,
-                    font="Jetbrainsmono nerd font",
-                    margin=0,
-                    padding=4,
-                    borderwidth=1,
-                ),
-
-                # Spotify(
-                #     foreground=colors[7],
-                #     font="Jetbrainsmono nerd font",
-                #     format="{icon} {artist} - {track}",
-                #     # format="{icon} {track}",
-                #     width=250,
-                #     scroll=True,
-                #     scroll_interval=0.02,
-                # ),
-
-
-                widget.Spacer(length=10),
-
-                # widget.CPU(
-                #     format='  {load_percent}%'
-                #         ),
-                # widget.Spacer(length=10),
-
+                widget.Spacer(),
                 widget.Systray(icon_size = 33,
-                               background=colors[5],),
-                widget.Wlan(
-                    format = " {percent:2.0%}",
-                    mouse_callbacks = {'Button1': lazy.spawn("alacritty -e nmtui")},
-                    foreground=colors[0],
-                    background=colors[5],
-                ),
-
+                               # background=colors[5],
+                               ),
                 widget.Spacer(length=10,),
 
 
                 widget.Battery(
-                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
-                    charge_char="󱐋",
-                    discharge_char="󰁹",
+                    # format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                    format="{char} {percent:2.0%}",
+            charge_char="󱐋 pwr^",
+                    discharge_char="󰁹 bat~",
                     update_interval=5,
                     low_percentage=0.20,
                     low_foreground="#000",
@@ -149,21 +120,11 @@ def get_widgets():
                     fmt=" {} ",
                     padding=0,
                 ),
-                widget.Spacer(length=10),
-        widget.Clock(
-                    # format='%I:%M %p',
-                    format='%b-%d | %I:%M %p ',
-                    foreground=colors[0],
-                    background=colors[8],
-                    margin=3,
-                    padding=5,
-                    # format='%a %d-%m-%y ',
-                    # foreground=colors['white'],
-                    # background=colors[0],
-        ),
+
 
     ]
     return w
+
 
 # BAR
 
@@ -188,7 +149,7 @@ screens = [
 
 # GROUPS
 
-groups = [Group(f"{i}", label=i) for i in range(1, 8)]
+groups = [Group(f"{i}", label=str(i)) for i in range(1, 8)]
 
 for i in groups:
     keys.extend(
@@ -239,7 +200,7 @@ layouts = [
 floating_layout = layout.Floating(
     border_focus='#0a0',
     border_normal='#000',
-    border_width=2,
+    border_width=3,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,

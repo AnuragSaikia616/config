@@ -12,7 +12,7 @@ import random
 import json
 
 # Rofi configuration files
-rofi_panel = Rofi(rofi_args=['-theme', '~/.config/qtile/rofi_main.rasi'])
+rofi_panel = Rofi(rofi_args=['-config', '~/.config/qtile/rofi_main.rasi'])
 # rofi_panel = Rofi(rofi_args=['-theme', '~/.config/rofi/config.rasi'])
 
 
@@ -39,8 +39,8 @@ def control_panel(qtile):
     elif index == 3:
         nl.toggle()
     elif index == 4:
-        # os.system('./.config/qtile/setwal_script.sh')waterfox
-        os.system('wal -i Downloads/wallpapers/')
+        os.system('./.config/qtile/setwal_script.sh')
+        # os.system('wal -i Downloads/wallpapers/')
         qtile.reload_config()
     elif index == 5:
         os.system('betterlockscreen -u .config/qtile/cache/background.jpg --fx pixel')
@@ -53,6 +53,11 @@ def control_panel(qtile):
         os.system("poweroff")
     elif index == 9:
         os.system("betterlockscreen -l pixel")
+
+@lazy.function
+def wallpaper(qtile):
+    os.system('./.config/qtile/setwal_script.sh')
+    qtile.reload_config()
         
 # Night Light
 class nightLight:

@@ -12,7 +12,7 @@ alt = "mod1"
 shift = "shift"
 # APPS
 terminal = 'alacritty'
-browser = "chromium"
+browser = "waterfox"
 launcher = "rofi -config .config/qtile/rofi_main.rasi -show drun -show-icons"
 # launcher = 'rofi -show drun -show-icons'
 filebrowser = 'thunar'
@@ -20,6 +20,7 @@ filebrowser = 'thunar'
 
 # Keyboard
 keys = [
+    Key([mod], "w", wallpaper()),
     # Switch groups
     Key([mod], "period", lazy.screen.next_group()),
     Key([mod], "comma", lazy.screen.prev_group()),

@@ -4,7 +4,6 @@
 
 # nitrogen --restore
 wal -R
-# emacs --daemon &
 ibus-daemon &
 nm-applet &
 # xcape -e "Super_L=Super_L|Control_L|b" &
