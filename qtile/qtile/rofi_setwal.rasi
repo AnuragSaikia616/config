@@ -1,0 +1,55 @@
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+* {
+    font: "Sourcecodepro 20";
+}
+configuration{
+    show-icons: true;
+    hover-select: true;
+    location: 0;
+    disable-history: true;
+    matching: "prefix";
+    hide-scrollbar: false;
+    display-file-browser-extended: "Pick Wallpaper";
+}
+window {
+    fullscreen: true;
+    location: center;
+    background-color: @background;
+    width: 70%;
+    height: 70%;
+    border: 3;
+    border-color: @foreground;
+}
+listview {
+    fixed-height:   true;
+    columns:        4;
+    border:         3px 0 0;
+    border-color:   @foreground;
+}
+
+element {
+    padding: 10px;
+    background-color:   transparent;
+    children: ["element-icon","element-text"];
+}
+
+element.normal.active {
+    background-color: @background;
+    text-color: @foreground;
+}
+
+element.selected.normal, element.selected.active {
+    background-color:   @selected-normal-background;
+    text-color:         @background;
+}
+
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    size: 230px;
+}

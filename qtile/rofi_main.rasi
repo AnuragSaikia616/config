@@ -1,6 +1,6 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
+@import "~/.cache/wal/colors-rofi-light.rasi"
 * {
-    font: "JetBrains Mono Nerd Font 20";
+    font: "JetBrains Mono Nerd Font 10";
 }
 configuration{
     modi: "drun,filebrowser";
@@ -69,7 +69,7 @@ textbox {
 
 listview {
     lines:      10;
-    columns:    2;
+    columns:    3;
     border:     1 0 1 0;
     border-color: @foreground;
     fixed-height:   false;

@@ -7,26 +7,23 @@ import os
 import subprocess
 from libqtile import bar, layout, hook
 from libqtile.config import Group, Match, hook, Screen, ScratchPad, DropDown
-from qtile_extras import widget
-from keybindings import keybinds,init_mouse
+from keybindings import *
+from bar import get_widgets, widgets_simple
 
 default_font = "Jetbrainsmono Nerd Font"
 default_fontsize = 20
 bar_opacity = 0
-bar_thickness = 35
+bar_thickness = 31
 colors = get_colors()
 foreground="#000"
 background="#fff"
 bar_color=colors[0] + "ff"
-# COLORS 
-# colors = {0:"#121212",2:"#ffffff",3:"#ffffff",7:"#ffffff",8:"#666666"}
-
 
 screens = [
 
     Screen(
         bottom=bar.Bar(
-            get_widgets(),
+            get_widgets(widgets_simple),
             bar_thickness,
             # margin=[0, 10, 5, 10],
             background=bar_color,
@@ -38,13 +35,7 @@ screens = [
     ),
 
 ]
-
-
-
-# GROUPS
-
 groups = [Group(f"{i}", label=str(i)) for i in range(1, 8)]
-
 for i in groups:
     keys.extend(
         [
@@ -63,34 +54,29 @@ for i in groups:
             ),
         ]
     )
+
 scratch = terminal
 groups.append(ScratchPad(
     "scratchpad", [
-        DropDown("term", scratch,on_focus_lost_hide=False,width=0.5, height=0.5, x=0.25, y=0.25, opacity=1),
-        # DropDown("term", scratch,on_focus_lost_hide=False,width=0.5, height=0.5, x=0.25, y=0.01, opacity=1),
-        DropDown("files", filebrowser,on_focus_lost_hide=False, width=0.8, height=0.8, x=0.1, y=0.0, opacity=1),
+        DropDown("term", scratch,on_focus_lost_hide=False,width=0.5, height=0.5, x=0.25, y=0.01, opacity=1),
+        DropDown("files", filebrowser,on_focus_lost_hide=False, width=0.6, height=0.6, x=0.2, y=0.0, opacity=1),
         DropDown("chatgpt", "chromium --app=https://chat.openai.com",width=0.6,height=0.6,on_focus_lost_hide=False,x=0.2,y=0.01,opacity=1),
                    ]))
 
-
-
-
-# LAYOUT
-
 layouts = [
-
     layout.Columns(
-                   margin=0,
-                   border_focus=colors[3],
-                   border_normal='#000',
-                   border_width=3
-                   ),
+        margin=5,
+        border_focus=colors[3],
+        border_normal='#000',
+        border_width=3,
+       margin_on_single = 0 
+    ),
     layout.Max(
         border_focus=colors[7],
-               border_normal='#000',
-               # margin=_margin,
-               border_width=0,
-               ),
+        border_normal='#000',
+        # margin=_margin,
+        border_width=0,
+    ),
 ]
 
 floating_layout = layout.Floating(
@@ -121,9 +107,7 @@ widget_defaults = dict(
 extension_defaults = [widget_defaults.copy()]
 
 
-# Keys
-keys = keybinds
-# Mouse
+keys = init_keys()
 mouse = init_mouse()
 
 
@@ -151,4 +135,5 @@ auto_minimize = True
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
-wmname = "LG3D"
+wmname = "Qtile"
+

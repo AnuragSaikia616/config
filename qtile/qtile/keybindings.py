@@ -13,12 +13,13 @@ shift = "shift"
 # APPS
 terminal = 'alacritty'
 browser = "waterfox"
-launcher = "rofi -show drun -config .config/rofi/config.rasi"
+launcher = "rofi -config ~/.config/rofi/rofi.rasi -show-icons -show"
+# launcher = 'rofi -show drun -show-icons'
 filebrowser = 'thunar'
 
 
 # Keyboard
-keybinds = [
+keys = [
     Key([mod], "w", wallpaper()),
     # Switch groups
     Key([mod], "period", lazy.screen.next_group()),
@@ -108,10 +109,10 @@ keybinds = [
         "brightnessctl s 5%-"), desc='brightness Down'),
 
 
-    # Key([mod], "y", lazy.spawn("chromium --app='https://youtube.com'")),
+    Key([mod], "y", lazy.spawn("chromium --app='https://youtube.com'")),
 
     # Spawn rofi launcher
-    # Key([mod],'p',lazy.spawn(launcher)),
+    Key([mod],'p',lazy.spawn(launcher)),
 
     # Run
     Key([mod], "r", lazy.spawn("rofi -show run")),
@@ -147,7 +148,7 @@ keybinds = [
     Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('notes'), desc="open scratchpad localSend"),
 
     # Chatgpt scratchpad
-    Key([mod], "9", lazy.group['scratchpad'].dropdown_toggle('chatgpt')),
+    Key([mod], "8", lazy.group['scratchpad'].dropdown_toggle('chatgpt')),
     # Launch xmenu 
     # Key([mod, "control"], "b", lazy.spawn("./.config/qtile/xmenu.sh")),
     
