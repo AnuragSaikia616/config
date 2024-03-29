@@ -3,12 +3,13 @@
     font: "Sourcecodepro 20";
 }
 configuration{
+    modi: "filebrowser"
     show-icons: true;
     hover-select: true;
     location: 0;
     disable-history: true;
     matching: "prefix";
-    hide-scrollbar: false;
+    hide-scrollbar: true;
     display-file-browser-extended: "Pick Wallpaper";
 }
 window {

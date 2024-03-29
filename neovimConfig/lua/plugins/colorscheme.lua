@@ -11,13 +11,13 @@ return {
 
   {
     "rebelot/kanagawa.nvim",
-    opts = {
-      transparent = true,
-      -- styles = {
-      --   sidebars = "transparent",
-      --   floats = "transparent",
-      -- },
-    },
+    -- opts = {
+    --   transparent = true,
+    -- styles = {
+    --   sidebars = "transparent",
+    --   floats = "transparent",
+    -- },
+    -- },
   }, --kanagawa colorscheme
   { "EdenEast/nightfox.nvim" },
   { "rose-pine/neovim", name = "rose-pine" },
@@ -26,7 +26,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox-material",
+      colorscheme = "kanagawa",
     },
   },
 }
