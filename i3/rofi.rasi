@@ -1,0 +1,110 @@
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+* {
+    font: "JetBrains Mono Nerd Font 14";
+    background: #000000;
+    foreground: #aaaaaa;
+}
+configuration{
+    modi: "drun";
+    icon-theme: "Papirus";
+    show-icons: true;
+    sort: true;
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: true;
+    hide-scrollbar: false;
+    matching: "prefix";
+    display-drun: "   Apps";
+    display-run: "   Run";
+    display-window: " 﩯  Windows";
+    display-filebrowser: "   FileBrowser";
+    display-Network: " 󰤨  Network";
+    sidebar-mode: false;
+}
+
+window {
+    width: 30%;
+    border: 0;
+    transparency: "real";
+    border-color: @foreground;
+    margin: 0;
+    padding:    10;
+    spacing:    0;
+    y-offset:  -30px;
+}
+
+inputbar {
+    children:   [entry ];
+}
+ 
+textbox-prompt-colon {
+    str: "->";
+    text-color: @foreground;
+}
+
+icon-search {
+    expand:     false;
+    filename:   "search";
+    size: 29px;
+}
+
+icon-search, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+
+entry {
+    font:   inherit;
+    placeholder         : "Search";
+    placeholder-color   : #555555;
+}
+
+message {
+    border:             0px 0 0;
+    border-color:       @border-color;
+    background-color: #000000;
+}
+
+textbox {
+    padding:    8px 24px;
+}
+
+listview {
+    lines:      10;
+    padding: 0;
+    columns:    1;
+    border:     0 0 0 0;
+    border-color: @foreground;
+    fixed-height:   false;
+}
+
+element {
+    padding:            3px 0px;
+    spacing:            0px;
+    background-color:   transparent;
+}
+
+element.normal.active {
+    background-color:#000000;
+    text-color: #00ff00;
+}
+
+element.selected.normal, element.selected.active {
+    background-color:#000000;
+    text-color:#00dd00;
+    border-color: @selected-normal-background;
+}
+
+element-icon {
+    size:   1.2em;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+}
+button selected{
+background-color: @selected-normal-background;
+text-color: @background;
+border-color: @selected-normal-background;
+border: 0;
+}
