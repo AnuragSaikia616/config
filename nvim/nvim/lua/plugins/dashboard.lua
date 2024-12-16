@@ -1,7 +1,14 @@
 return {
   "dashboard-nvim",
   opts = function()
-    local logo = [[NVIM]]
+    local logo = [[
+       ██╗   ██╗██╗███╗   ███╗          Z
+       ██║   ██║██║████╗ ████║      Z    
+       ██║   ██║██║██╔████╔██║   z       
+       ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
+        ╚████╔╝ ██║██║ ╚═╝ ██║           
+         ╚═══╝  ╚═╝╚═╝     ╚═╝           
+  ]]
 
     logo = string.rep("\n", 8) .. logo .. "\n\n"
 

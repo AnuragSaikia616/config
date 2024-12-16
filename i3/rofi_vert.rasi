@@ -1,9 +1,9 @@
 @import "~/.cache/wal/colors-rofi-dark.rasi"
 * {
-    font: "JetBrains Mono Nerd Font 16";
+    font: "JetBrains Mono Nerd Font 20";
     background: #000000;
-    foreground: #aaaaaa;
-    text:       #00dd99;
+    foreground: #dddddd;
+    text:       #00aa55;
 }
 configuration{
     modi: "drun,window";
@@ -25,16 +25,15 @@ configuration{
 }
 
 window {
-    border-radius: 0px;
-    width: 40%;
-    border: 2px;
+    width: 100%;
+    border: 3;
     fullscreen: false;
     transparency: "real";
-    border-color: @foreground;
+    border-color: @background;
     margin: 0;
     padding:    0;
     spacing:    0;
-    y-offset:  0%;
+    y-offset:  0px;
 }
 
 inputbar {
@@ -54,13 +53,11 @@ icon-search {
 
 icon-search, entry, element-icon, element-text {
     vertical-align: 0.5;
-    horizontal-align: 0.5;
-    padding: 10px;
 }
 
 entry {
     font:   inherit;
-    placeholder         : " search ";
+    placeholder         : " search";
     placeholder-color   : #555555;
 }
 
@@ -75,25 +72,27 @@ textbox {
 }
 
 listview {
-    lines:      6;
-    padding:    5px;
-    columns:    1;
-    layout: vertical;
+    lines:      7;
+    padding:    0;
+    spacing:    1%;
+    columns:    4;
+    layout:     horizontal;
     cycle:    true;
     border:     0 0 0 0;
     border-color: @foreground;
     fixed-height:   false;
     fixed-columns:   false;
-    dynamic: false;
+    dynamic: true;
     scrollbar:    false;
 }
 
 element {
     orientation:        horizontal;
-    padding:            0px 0px;
+    padding:            5px 10px;
     spacing:            0px;
     background-color:   transparent;
-    border-radius: 0px;
+    border-radius: 10px;
+    width: 19%;
 }
 
 element.normal.active {
@@ -102,8 +101,8 @@ element.normal.active {
 }
 
 element.selected.normal, element.selected.active {
-    background-color: @background;
-    text-color: @text;
+    background-color: @text;
+    text-color: @background;
     border-color: @selected-normal-background;
 }
 
@@ -114,8 +113,7 @@ element-icon {
 element-text {
     background-color: transparent;
     text-color: inherit;
-    vertical-align: 0.5;
-    horizontal-align: 0;
+    padding: 10px;
 }
 button selected{
   background-color: @foreground;
