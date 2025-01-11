@@ -1,26 +1,26 @@
 @import "~/.cache/wal/colors-rofi-dark.rasi"
 * {
-    font: "JetBrains Mono Nerd Font 18";
+    font: "JetBrains Mono Nerd Font 10";
     background: #000000;
-    foreground: #ffffff;
+    foreground: #dddddd;
     text:       #000000;
 }
 configuration{
-    modi: "drun";
+    modi: "drun,run";
     icon-theme: "Papirus";
     show-icons: true;
     sort: true;
     drun-display-format: "{name}";
     location: 0;
     disable-history: false;
-    hide-scrollbar: false;
+    hide-scrollbar: true;
     matching: "prefix";
     display-drun: "   Apps";
     display-run: "   Run";
     display-window: " 﩯  Windows";
     display-filebrowser: "   FileBrowser";
     display-Network: " 󰤨  Network";
-    sidebar-mode: false;
+    sidebar-mode: true;
     transparency: "real";
      filebrowser {
       directory: "/home/anurag/";
@@ -30,21 +30,22 @@ configuration{
 }
 
 window {
-    border-radius: 0px;
-    width: 20%;
-    border: 0px;
+    border-radius: 15px;
+    width: 30%;
+    border: 2px;
     fullscreen: false;
     transparency: "real";
     border-color: @foreground;
     margin: 0;
     padding:    0;
-    spacing:    0;
+    spacing:    20;
     y-offset:  0%;
 }
 
 inputbar {
-//    padding: 80 60;
-//    background-image:  url("~/Pictures/wallpapers/wallhaven-3lm256_2560x1440.png",width);
+    padding: 20 20;
+//    background-image:  url("~/Pictures/wallpapers/blackhole.jpg",width);
+    border-radius: 15px;
     children:   [entry ];
 }
  
@@ -92,7 +93,7 @@ listview {
     fixed-height:   false;
     fixed-columns:   false;
     dynamic: true;
-    scrollbar:    true;
+    scrollbar:    false;
 }
 
 element {
